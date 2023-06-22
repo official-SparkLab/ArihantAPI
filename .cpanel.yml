@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/lsgyfvyd/arihant.sparklabitsolutions.co.in/
+    - /bin/cp * $DEPLOYPATH
