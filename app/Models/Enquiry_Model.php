@@ -16,7 +16,6 @@ class Enquiry_Model extends Model
         'e_date',
         'e_village',
         'product_name',
-        'qty',
         'e_note',
         'e_reason'
     ];

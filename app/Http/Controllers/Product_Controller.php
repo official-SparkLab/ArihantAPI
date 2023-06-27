@@ -12,6 +12,7 @@ class Product_Controller extends Controller
     {
         $product = new Product_Model;
         $product->p_name = $request->input('p_name');
+        $product->p_unit = $request->input('p_unit');
         $product->p_category = $request->input('p_category');
         $product->p_batch = $request->input('p_batch');
         $product->p_rate = $request->input('p_rate');

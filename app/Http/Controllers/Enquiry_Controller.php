@@ -17,7 +17,7 @@ class Enquiry_Controller extends Controller
          $enquiry->e_date = $request->input('e_date');
          $enquiry->e_village = $request->input('e_village');
          $enquiry->product_name = $request->input('e_product_name');
-         $enquiry->qty = $request->input('Quantity');
+        
          $enquiry->e_note = $request->input('e_note');
          $enquiry->save();
  

@@ -12,6 +12,7 @@ class Product_Model extends Model
     protected $primaryKey = 'p_id';
     protected $fillable = [
         'p_name',
+        'p_unit',
         'p_category',
         'p_batch',
         'p_rate',
