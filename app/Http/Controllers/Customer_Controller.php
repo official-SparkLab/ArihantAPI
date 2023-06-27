@@ -88,7 +88,7 @@ class Customer_Controller extends Controller
         $customer->save();
 
         return response()->json([
-            'message' => 'Record deleted',z
+            'message' => 'Record deleted',
         ]);
     }
 
