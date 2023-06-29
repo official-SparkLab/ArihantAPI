@@ -51,6 +51,25 @@ class Expense_Controller extends Controller
         ]);
     }
     
+  //Fetch Particular  data through id
+  public function fetchDataById($exp_id)
+  {
+      $product = Expenses_Model::find($exp_id);
+   
+      if (!$product) {
+          return response()->json([
+              'message' => 'Product not found',
+          ], 404);
+      }
+   
+      return response()->json([
+          'data' => $product,
+      ]);
+  }
+
+
+
+
     // update Expenses 
  public function updateExpense(Request $request, $exp_id)
 {
