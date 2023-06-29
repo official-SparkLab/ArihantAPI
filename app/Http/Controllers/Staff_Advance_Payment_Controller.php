@@ -39,6 +39,49 @@ class Staff_Advance_Payment_Controller extends Controller
      }
 
 
+        
+  //Fetch Particular  data through id
+  public function fetchDataById($p_id)
+  {
+      $payment = Staff_Advance_Payment_Model::find($p_id);
+   
+      if (!$payment) {
+          return response()->json([
+              'message' => 'Product not found',
+          ], 404);
+      }
+   
+      return response()->json([
+          'data' => $payment,
+      ]);
+  }
+
+
+
+     public function updateData(Request $request,$p_id)
+     {
+        $payment = Staff_Advance_Payment_Model::find($p_id);
+
+        if (!$payment) {
+            return response()->json(['message' => 'payment not found'], 404);
+        }
+         $payment->p_name = $request->input('p_name');
+         $payment->p_adv_amt = $request->input('p_adv_amt');
+         $payment->p_mode = $request->input('p_mode');
+         $payment->p_date = $request->input('p_date');
+         $payment->p_description = $request->input('p_description');
+         
+         $payment->save();
+ 
+         if ($payment) {
+             return response()->json(['message' => 'Data Added Succesfully']);
+         } else {
+             return response()->json(['message' => 'Failed to store data']);
+         }
+ 
+     }
+
+
       // Delete Product data 
     public function deleteStaffAdvancedPaymentData($p_id)
     {

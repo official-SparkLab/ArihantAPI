@@ -64,6 +64,23 @@ class Customer_Controller extends Controller
             'data' => $customers,
         ]);
     }
+
+
+     //Fetch Particular  data through id
+  public function fetchDataById($c_id)
+  {
+      $customer = Customer_Model::find($c_id);
+   
+      if (!$customer) {
+          return response()->json([
+              'message' => 'Product not found',
+          ], 404);
+      }
+   
+      return response()->json([
+          'data' => $customer,
+      ]);
+  }
     
     //Fetch Data based On contact number
 

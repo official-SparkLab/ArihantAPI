@@ -34,6 +34,8 @@ Route::post('/expenses', [Expense_Controller::class, 'Expense']);
 
 Route::get('/fetchExpensesData', [Expense_Controller::class, 'fetchExpenseData']);
 
+Route::get('/fetchExpensesData/{exp_id}', [Expense_Controller::class, 'fetchDataById']);
+
 Route::delete('/deleteExpenseData/{exp_id}', [Expense_Controller::class, 'deleteExpenses']);
 
 Route::put('/expenses/{exp_id}',[Expense_Controller::class, 'updateExpense']);
@@ -44,6 +46,10 @@ Route::post('/addProduct', [Product_Controller::class, 'addProduct']);
 
 Route::get('/fetchProducData', [Product_Controller::class, 'fetchProducData']);
 
+Route::get('/fetchProducData/{p_id}', [Product_Controller::class, 'fetchDataById']);
+
+Route::put('/addProduct/{p_id}', [Product_Controller::class, 'updateProductData']);
+
 Route::delete('/deleteProductData/{p_id}', [Product_Controller::class, 'deleteProductData']);
 
 
@@ -52,6 +58,10 @@ Route::delete('/deleteProductData/{p_id}', [Product_Controller::class, 'deletePr
 Route::post('/addSupplier', [Supplier_Controller::class, 'addSupplier']);
 
 Route::get('/fetchSuppliersData', [Supplier_Controller::class, 'fetchSuppliersData']);
+
+Route::get('/fetchSuppliersData/{s_id}', [Supplier_Controller::class, 'fetchDataById']);
+
+Route::put('/addSupplier/{s_id}',[Supplier_Controller::class, 'updateSupplier']);
 
 Route::delete('/deleteSupplierData/{s_id}', [Supplier_Controller::class, 'deleteSupplierData']);
 
@@ -62,9 +72,11 @@ Route::post('/addCustomer', [Customer_Controller::class, 'addCustomer']);
 
 Route::get('/fetchCustomersData', [Customer_Controller::class, 'fetchCustomersData']);
 
+Route::get('/fetchCustomersData/{c_id}', [Customer_Controller::class, 'fetchDataById']);
+
 Route::delete('/deleteCustomerData/{c_id}', [Customer_Controller::class, 'deleteCustomerData']);
 
-Route :: put('/updateCustomer/{c_id}', [Customer_Controller::class,'updateCustomer']);
+Route :: put('/addCustomer/{c_id}', [Customer_Controller::class,'updateCustomer']);
 
 Route :: get('/fetchCustomersData/{c_mobile_no}', [Customer_Controller::class,'fetchCustomers']);
 
@@ -76,6 +88,10 @@ Route::post('/addCompany', [Company_Controller::class, 'addCompany']);
 
 Route::get('/fetchCompanyData', [Company_Controller::class, 'fetchCompanyData']);
 
+Route::get('/fetchCompanyData/{c_id}', [Company_Controller::class, 'fetchDataById']);
+
+Route :: put('/addCompany/{c_id}', [Company_Controller::class,'updateCompany']);
+
 Route::delete('/deleteCompanyData/{c_id}', [Company_Controller::class, 'deleteCompanyData']);
 
 
@@ -85,6 +101,11 @@ Route::post('/addStaff', [Staff_Details_Controller::class, 'addStaff']);
 
 Route::get('/fetchStaffData', [Staff_Details_Controller::class, 'fetchStaffData']);
 
+Route::get('/fetchStaffData/{s_id}', [Staff_Details_Controller::class, 'fetchDataById']);
+
+Route :: put('/addStaff/{s_id}', [Staff_Details_Controller::class,'updateStaff']);
+
+
 Route::delete('/deleteStaffData/{s_id}', [Staff_Details_Controller::class, 'deleteStaffData']);
 
 // Staff Payment Routing___________________________________________________
@@ -92,6 +113,11 @@ Route::delete('/deleteStaffData/{s_id}', [Staff_Details_Controller::class, 'dele
 Route::post('/addStaffPayment', [Staff_Payment_Controller::class, 'addStaffPayment']);
 
 Route::get('/fetchStaffPaymentData', [Staff_Payment_Controller::class, 'fetchStaffPaymentData']);
+
+Route::get('/fetchStaffPaymentData/{p_id}', [Staff_Payment_Controller::class, 'fetchDataById']);
+
+Route :: put('/addStaffPayment/{p_id}', [Staff_Payment_Controller::class,'updateData']);
+
 
 Route::delete('/deleteStaffPaymentData/{p_id}', [Staff_Payment_Controller::class, 'deleteStaffPaymentData']);
 
@@ -102,6 +128,10 @@ Route::post('/addStaffAdvancedPayment', [Staff_Advance_Payment_Controller::class
 
 Route::get('/fetchStaffAdvancedPaymentData', [Staff_Advance_Payment_Controller::class, 'fetchStaffAdvancedPaymentData']);
 
+Route::get('/fetchStaffAdvancedPaymentData/{p_id}', [Staff_Advance_Payment_Controller::class, 'fetchDataById']);
+
+Route :: put('/addStaffAdvancedPayment/{p_id}', [Staff_Advance_Payment_Controller::class,'updateData']);
+
 Route::delete('/deleteStaffAdvancedPaymentData/{p_id}', [Staff_Advance_Payment_Controller::class, 'deleteStaffAdvancedPaymentData']);
 
 // Enquiry Routings______________________________________________________________
@@ -109,6 +139,10 @@ Route::delete('/deleteStaffAdvancedPaymentData/{p_id}', [Staff_Advance_Payment_C
 Route::post('/addEnquiry', [Enquiry_Controller::class, 'addEnquiry']);
 
 Route::get('/fetchEnquiryData', [Enquiry_Controller::class, 'fetchEnquiryData']);
+
+Route::get('/fetchEnquiryData/{e_id}', [Enquiry_Controller::class, 'fetchDataById']);
+
+Route :: put('/addEnquiry/{e_id}', [Enquiry_Controller::class,'updateEnquiry']);
 
 Route::delete('/deleteEnquiryData/{e_id}', [Enquiry_Controller::class, 'deleteEnquiryData']);
 
