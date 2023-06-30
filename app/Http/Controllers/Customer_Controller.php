@@ -73,7 +73,7 @@ class Customer_Controller extends Controller
    
       if (!$customer) {
           return response()->json([
-              'message' => 'Product not found',
+              'message' => 'Customer not found',
           ], 404);
       }
    
