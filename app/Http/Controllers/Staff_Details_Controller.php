@@ -52,7 +52,7 @@ class Staff_Details_Controller extends Controller
    
       if (!$product) {
           return response()->json([
-              'message' => 'Product not found',
+              'message' => 'Employee not found',
           ], 404);
       }
    
@@ -70,7 +70,7 @@ class Staff_Details_Controller extends Controller
         if (!$staff) {
             return response()->json(['message' => 'Staff not found'], 404);
         }
-        $staff = new Staff_Details_Model;
+        
         $staff->s_name = $request->input('s_name');
         $staff->s_dob = $request->input('s_dob');
         $staff->s_address = $request->input('s_address');
