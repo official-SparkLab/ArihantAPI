@@ -78,7 +78,7 @@ Route::delete('/deleteCustomerData/{c_id}', [Customer_Controller::class, 'delete
 
 Route :: put('/addCustomer/{c_id}', [Customer_Controller::class,'updateCustomer']);
 
-Route :: get('/fetchCustomersData/{c_mobile_no}', [Customer_Controller::class,'fetchCustomers']);
+Route :: get('/fetchCustomersByContact/{c_mobile_no}', [Customer_Controller::class,'fetchCustomers']);
 
 
 
