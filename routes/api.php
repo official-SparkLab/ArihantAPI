@@ -4,7 +4,7 @@ use App\Http\Controllers\Company_Controller;
 use App\Http\Controllers\Customer_Controller;
 use App\Http\Controllers\Enquiry_Controller;
 use App\Http\Controllers\Ordered_Product_Controller;
-use App\Http\Controllers\Order_Details_Controller;
+use App\Http\Controllers\Order_details_controller;
 use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
