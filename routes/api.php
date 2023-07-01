@@ -76,7 +76,7 @@ Route::get('/fetchCustomersData/{c_id}', [Customer_Controller::class, 'fetchData
 
 Route::delete('/deleteCustomerData/{c_id}', [Customer_Controller::class, 'deleteCustomerData']);
 
-Route :: put('/addCustomer/{c_id}', [Customer_Controller::class,'updateCustomer']);
+Route :: put('/addCustomer/{c_mobile_no}', [Customer_Controller::class,'updateCustomer']);
 
 Route :: get('/fetchCustomersByContact/{c_mobile_no}', [Customer_Controller::class,'fetchCustomers']);
 
@@ -159,3 +159,6 @@ Route::post('/productOrder',[Ordered_Product_Controller::class,'addOrder']);
 Route::post('/addOrder',[Order_details_controller::class,'addOrder']);
 
 Route::get('/fetchOrder',[Order_details_controller::class,'fetchOrderDetailsData']);
+
+Route::delete('/deleteProduct',[Ordered_Product_Controller::class,'deleteOrderdProduct']);
+

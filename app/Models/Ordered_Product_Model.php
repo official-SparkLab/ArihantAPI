@@ -14,7 +14,6 @@ class Ordered_Product_Model extends Model
         'p_id',
         'order_no',
         'product_name',
-        'weight',
         'quantity',
         'rate',
         'total'
