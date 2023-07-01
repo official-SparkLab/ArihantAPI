@@ -111,9 +111,9 @@ class Customer_Controller extends Controller
 
 
     // Update a customer   
-    public function updateCustomer(Request $request, $c_id)
+    public function updateCustomer(Request $request, $c_mobile_no)
     {
-        $customer = Customer_Model::find($c_id);
+        $customer = Customer_Model::find($c_mobile_no);
         if (!$customer) {
             return response()->json(['message' => 'Customer not found'], 404);
         }
@@ -125,12 +125,13 @@ class Customer_Controller extends Controller
         $customer->c_state = $request->input('c_state');
         $customer->c_city = $request->input('c_city');
         $customer->c_taluka = $request->input('c_taluka');
+        $customer->c_post_office = $request->input('c_post_office');
         $customer->c_village = $request->input('c_village');
         $customer->c_address = $request->input('c_address');
         $customer->c_note = $request->input('c_note');
         $customer->save();
 
-        return response()->json(['message' => 'Data Updated Successfully'], 200);
+        return response()->json(['message' => 'Customer Updated Successfully'], 200);
 
     }
 }

@@ -15,7 +15,6 @@ class Ordered_Product_Controller extends Controller
         $product->p_id = $request->input('p_id');
         $product->order_no = $request->input('order_no');
         $product->product_name = $request->input('product_name');
-        $product->weight = $request->input('weight');
         $product->quantity= $request->input('quantity');
         $product->rate = $request->input('rate');
         $product->total = $request->input('total');
@@ -30,4 +29,16 @@ class Ordered_Product_Controller extends Controller
             return response()->json(['Message' =>"Product not saved"]);
         }
     }
+
+
+
+      // Delete order product data 
+      public function deleteOrderdProduct($p_id)
+      {
+          $product = Ordered_Product_Model::findOrFail($p_id);
+            $product->delete();
+          return response()->json([
+              'message' => 'Record deleted',
+          ]);
+      }
 }
