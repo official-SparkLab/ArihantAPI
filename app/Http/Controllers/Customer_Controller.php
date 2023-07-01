@@ -111,9 +111,9 @@ class Customer_Controller extends Controller
 
 
     // Update a customer   
-    public function updateCustomer(Request $request, $c_mobile_no)
+    public function updateCustomer(Request $request, $c_id)
     {
-        $customer = Customer_Model::find($c_mobile_no);
+        $customer = Customer_Model::find($c_id);
         if (!$customer) {
             return response()->json(['message' => 'Customer not found'], 404);
         }
