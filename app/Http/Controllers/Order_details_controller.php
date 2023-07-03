@@ -14,7 +14,7 @@ class Order_details_controller extends Controller
     {
         $order = new Order_details_model;
 
-        $order->order_no = $request->input('order_no');
+ 
         $order->order_date = $request->input('today');
         $order->order_type = $request->input('order_type');
         $order->contact_no = $request->input('contactNo');
