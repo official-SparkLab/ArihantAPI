@@ -11,8 +11,9 @@ class Order_details_model extends Model
 
     protected $table = 'tbl_order_details';
 
+    protected $primaryKey = "order_no";
+
     protected $fillable  = [
-        'order_no',
         'order_date',
         'order_type',
         'contact_no',
