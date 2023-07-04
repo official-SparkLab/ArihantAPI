@@ -12,7 +12,7 @@ class Ordered_Product_Model extends Model
 
     protected $fillable = [
         'p_id',
-        'order_no',
+        'unique_id',
         'product_name',
         'quantity',
         'rate',

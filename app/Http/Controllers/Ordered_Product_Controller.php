@@ -13,7 +13,7 @@ class Ordered_Product_Controller extends Controller
     {
         $product = new Ordered_Product_Model;
         $product->p_id = $request->input('p_id');
-        $product->order_no = $request->input('order_no');
+        $product->unique_id = $request->input('unique_id');
         $product->product_name = $request->input('product_name');
         $product->quantity= $request->input('quantity');
         $product->rate = $request->input('rate');
@@ -31,14 +31,35 @@ class Ordered_Product_Controller extends Controller
     }
 
 
-
-      // Delete order product data 
-      public function deleteOrderdProduct($p_id)
-      {
-          $product = Ordered_Product_Model::findOrFail($p_id);
+    public function deleteOrderdProduct($p_id)
+{
+    try {
+        $product = Ordered_Product_Model::where('p_id', $p_id)->first();
+        if ($product) {
             $product->delete();
-          return response()->json([
-              'message' => 'Record deleted',
-          ]);
-      }
+            return response()->json(['Message' => 'Product deleted successfully']);
+        } else {
+            return response()->json(['Message' => 'Product not found']);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+
+
+ //Fetch Data based On unique number
+
+ public function fetchOrderedProduct($unique_id)
+ {
+     $product = Ordered_Product_Model::where('unique_id', $unique_id)->first();
+ 
+     if ($product) {
+         return response()->json(['data' => $product]);
+     } else {
+         return response()->json(["Message" => "Products not found"]);
+     }
+ }
+
+
+
 }
