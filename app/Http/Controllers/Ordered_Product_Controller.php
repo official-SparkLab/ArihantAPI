@@ -47,18 +47,17 @@ class Ordered_Product_Controller extends Controller
 }
 
 
- //Fetch Data based On unique number
+public function fetchOrderedProduct($unique_id)
+{
+    $products = Ordered_Product_Model::where('unique_id', $unique_id)->get();
 
- public function fetchOrderedProduct($unique_id)
- {
-     $product = Ordered_Product_Model::find($unique_id);
- 
-     if ($product) {
-         return response()->json(['data' => $product]);
-     } else {
-         return response()->json(["Message" => "Products not found"]);
-     }
- }
+    if ($products->isEmpty()) {
+        return response()->json(["message" => "Products not found"]);
+    } else {
+        return response()->json(['data' => $products]);
+    }
+}
+
 
 
 
