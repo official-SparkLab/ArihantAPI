@@ -51,7 +51,7 @@ class Ordered_Product_Controller extends Controller
 
  public function fetchOrderedProduct($unique_id)
  {
-     $product = Ordered_Product_Model::where('unique_id', $unique_id)->first();
+     $product = Ordered_Product_Model::find($unique_id);
  
      if ($product) {
          return response()->json(['data' => $product]);
