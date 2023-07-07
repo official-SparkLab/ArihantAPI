@@ -160,7 +160,7 @@ Route::post('/addOrder',[Order_details_controller::class,'addOrder']);
 
 Route::get('/fetchOrder',[Order_details_controller::class,'fetchOrderDetailsData']);
 
-Route::delete('/deleteOrderdProduct/{p_id}',[Ordered_Product_Controller::class,'deleteOrderdProduct']);
+Route::delete('/deleteOrderdProduct/{unique_id}/{p_id}',[Ordered_Product_Controller::class,'deleteOrderdProduct']);
 
 Route::get('/fetchOrderedProduct/{unique_id}',[Ordered_Product_Controller::class,'fetchOrderedProduct']);
 
