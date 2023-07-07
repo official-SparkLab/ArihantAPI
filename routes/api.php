@@ -6,6 +6,8 @@ use App\Http\Controllers\Enquiry_Controller;
 use App\Http\Controllers\Ordered_Product_Controller;
 use App\Http\Controllers\Order_details_controller;
 use App\Http\Controllers\Product_Controller;
+use App\Http\Controllers\PurchaseDetailController;
+use App\Http\Controllers\PurchasedProductController;
 use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
 use App\Http\Controllers\Staff_Payment_Controller;
@@ -165,3 +167,19 @@ Route::delete('/deleteOrderdProduct/{unique_id}/{p_id}',[Ordered_Product_Control
 Route::get('/fetchOrderedProduct/{unique_id}',[Ordered_Product_Controller::class,'fetchOrderedProduct']);
 
 
+// Purchased Routing
+
+Route::post('/addPurchasedProduct',[PurchasedProductController::class,'store']);
+
+Route::get('/fetch_all_purchased_Products',[PurchasedProductController::class,'fetchall']);
+
+Route::get('/fetch_by_invoices/{invoice_no}',[PurchasedProductController::class,'show']);
+
+
+//PurchDetails Routing
+
+Route::post('/addPurchasedDetails',[PurchaseDetailController::class,'store']);
+
+Route::get('/fetch_all_purchased_details',[PurchaseDetailController::class,'index']);
+
+Route::get('/fetch_by_invoices_no/{invoice_no}',[PurchaseDetailController::class,'show']);
