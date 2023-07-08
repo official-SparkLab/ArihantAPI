@@ -9,22 +9,26 @@ class PurchaseDetailController extends Controller
 {
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'invoice_no' => 'required',
-            'date' => 'required|date',
-            'supplier_name' => 'required',
-            'place_of_supply' => 'required',
-            'dispatch_no' => 'required',
-            'destination' => 'required',
-            'shipping_cost' => 'required|numeric',
-            'sub_total' => 'required|numeric',
-            'discount' => 'required|numeric',
-            'grand_total' => 'required|numeric'
-        ]);
+    
+        $purchaseDetails = new PurchaseDetail;
+        $purchaseDetails->invoice_no = $request->input('invoice_no');
+        $purchaseDetails->date = $request->input('date');
+        $purchaseDetails->supplier_name = $request->input('supplier_name');
+        $purchaseDetails->place_of_supply = $request->input('place_of_supply');
+        $purchaseDetails->dispatch_no = $request->input('dispatch_no');
+        $purchaseDetails->destination = $request->input('destination');
+        $purchaseDetails->shipping_cost = $request->input('shipping_cost');
+        $purchaseDetails->sub_total = $request->input('sub_total');
+        $purchaseDetails->discount = $request->input('discount');
+        $purchaseDetails->grand_total = $request->input('grand_total');
 
-        PurchaseDetail::create($validatedData);
+        $purchaseDetails->save();
 
-        return response()->json(['message' => 'Data saved successfully'], 201);
+        if ($purchaseDetails) {
+            return response()->json(['message' => 'Data Added Succesfully']);
+        } else {
+            return response()->json(['message' => 'Failed to store data']);
+        }
     }
 
     public function index()

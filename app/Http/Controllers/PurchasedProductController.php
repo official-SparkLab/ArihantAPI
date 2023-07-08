@@ -9,19 +9,22 @@ class PurchasedProductController extends Controller
 {
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'invoice_no' => 'required',
-            'p_id' => 'required',
-            'product_name' => 'required',
-            'unit' => 'required',
-            'quantity' => 'required|integer',
-            'rate' => 'required|numeric',
-            'total' => 'required|numeric',
-        ]);
+        $product = new PurchasedProduct;
+       $product->invoice_no = $request->input('invoice_no');
+        $product->p_id = $request->input('p_id');
+        $product->product_name = $request->input('product_name');
+        $product->unit = $request->input('unit');
+        $product->quantity = $request->input('quantity');
+        $product->rate = $request->input('rate');
+        $product->total = $request->input('total');
 
-        PurchasedProduct::create($validatedData);
+        $product->save();
 
-        return response()->json(['message' => 'Data saved successfully'], 201);
+        if ($product) {
+            return response()->json(['Message' => 'Product saved successfully']);
+        } else {
+            return response()->json(['Message' => "Product not saved"]);
+        }
     }
 
     public function fetchall()
