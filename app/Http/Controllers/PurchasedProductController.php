@@ -21,7 +21,7 @@ class PurchasedProductController extends Controller
         $product->save();
 
         if ($product) {
-            return response()->json(['Message' => 'Product saved successfully']);
+            return response()->json(['Message' => 'Purchased Product saved successfully']);
         } else {
             return response()->json(['Message' => "Product not saved"]);
         }

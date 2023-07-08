@@ -25,7 +25,7 @@ class PurchaseDetailController extends Controller
         $purchaseDetails->save();
 
         if ($purchaseDetails) {
-            return response()->json(['message' => 'Data Added Succesfully']);
+            return response()->json(['message' => 'Purchase Details Added Succesfully']);
         } else {
             return response()->json(['message' => 'Failed to store data']);
         }
