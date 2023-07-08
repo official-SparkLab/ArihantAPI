@@ -66,9 +66,9 @@ class Supplier_Controller extends Controller
 
 
     //Fetch Particular Product data through id
-    public function fetchDataById($s_id)
+    public function fetchDataById($s_name)
     {
-        $supplier = Supplier_Model::find($s_id);
+        $supplier = Supplier_Model::find($s_name);
 
         if (!$supplier) {
             return response()->json([

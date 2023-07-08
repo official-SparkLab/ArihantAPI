@@ -61,7 +61,7 @@ Route::post('/addSupplier', [Supplier_Controller::class, 'addSupplier']);
 
 Route::get('/fetchSuppliersData', [Supplier_Controller::class, 'fetchSuppliersData']);
 
-Route::get('/fetchSuppliersData/{s_id}', [Supplier_Controller::class, 'fetchDataById']);
+Route::get('/fetchSuppliersData/{s_name}', [Supplier_Controller::class, 'fetchDataById']);
 
 Route::put('/addSupplier/{s_id}',[Supplier_Controller::class, 'updateSupplier']);
 
