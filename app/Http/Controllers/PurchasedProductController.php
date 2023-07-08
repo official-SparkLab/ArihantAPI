@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PurchasedProduct;
+use App\Models\PurchasedProduct;
 
 class PurchasedProductController extends Controller
 {
     public function store(Request $request)
     {
         $product = new PurchasedProduct;
-       $product->invoice_no = $request->input('invoice_no');
+        $product->invoice_no = $request->input('invoice_no');
         $product->p_id = $request->input('p_id');
         $product->product_name = $request->input('product_name');
         $product->unit = $request->input('unit');
@@ -21,7 +21,7 @@ class PurchasedProductController extends Controller
         $product->save();
 
         if ($product) {
-            return response()->json(['Message' => 'Product saved successfully']);
+            return response()->json(['Message' => 'Purchased Product saved successfully']);
         } else {
             return response()->json(['Message' => "Product not saved"]);
         }
