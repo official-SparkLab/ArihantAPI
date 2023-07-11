@@ -38,16 +38,14 @@ class Order_details_controller extends Controller
     }
 
 
-    // Update Order Details
     public function updateOrder(Request $request, $unique_id)
     {
-        $order = Order_details_model::find($unique_id);
+        $order = Order_details_model::where('unique_id', $unique_id)->first();
     
         if (!$order) {
-            return response()->json(['Message' => 'Product not found'], 404);
+            return response()->json(['Message' => 'Order not found']);
         }
-        
-        $order->unique_id = $request->input('unique_id');
+    
         $order->today = $request->input('today');
         $order->order_type = $request->input('order_type');
         $order->contactNo = $request->input('contactNo');
@@ -61,6 +59,7 @@ class Order_details_controller extends Controller
     
         return response()->json(['Message' => 'Order updated successfully']);
     }
+    
     
 
 

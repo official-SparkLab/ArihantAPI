@@ -61,26 +61,25 @@ class Ordered_Product_Controller extends Controller
 
 
 
-    // Update Ordered Product 
     public function updateOrder(Request $request, $unique_id)
-{
-    $product = Ordered_Product_Model::find($unique_id);
-
-    if (!$product) {
-        return response()->json(['Message' => 'Product not found'], 404);
+    {
+        $product = Ordered_Product_Model::where('unique_id', $unique_id)->first();
+    
+        if (!$product) {
+            return response()->json(['Message' => 'Product not found']);
+        }
+    
+        $product->p_id = $request->input('p_id');
+        $product->product_name = $request->input('product_name');
+        $product->quantity = $request->input('quantity');
+        $product->rate = $request->input('rate');
+        $product->total = $request->input('total');
+    
+        $product->save();
+    
+        return response()->json(['Message' => 'Product updated successfully']);
     }
-
-    $product->p_id = $request->input('p_id');
-    $product->unique_id = $request->input('unique_id');
-    $product->product_name = $request->input('product_name');
-    $product->quantity = $request->input('quantity');
-    $product->rate = $request->input('rate');
-    $product->total = $request->input('total');
-
-    $product->save();
-
-    return response()->json(['Message' => 'Product updated successfully']);
-}
+    
 
 
 
