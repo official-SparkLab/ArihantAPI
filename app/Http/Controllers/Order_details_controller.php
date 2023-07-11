@@ -46,7 +46,7 @@ class Order_details_controller extends Controller
             return response()->json(['Message' => 'Order not found']);
         }
     
-        $order->today = $request->input('today');
+        $order->order_date = $request->input('today');
         $order->order_type = $request->input('order_type');
         $order->contactNo = $request->input('contactNo');
         $order->sub_total = $request->input('sub_total');
