@@ -9,7 +9,7 @@ class Ordered_Product_Model extends Model
 {
     use HasFactory;
     protected $table = 'tbl_ordered_product';
-
+    protected $primaryKey = "id";
     protected $fillable = [
         'p_id',
         'unique_id',
