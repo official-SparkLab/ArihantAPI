@@ -37,6 +37,42 @@ class Order_details_controller extends Controller
         }
     }
 
+
+    // Update Order Details
+    public function updateOrder(Request $request, $unique_id)
+    {
+        $order = Order_details_model::find($unique_id);
+    
+        if (!$order) {
+            return response()->json(['Message' => 'Product not found'], 404);
+        }
+        
+        $order->unique_id = $request->input('unique_id');
+        $order->today = $request->input('today');
+        $order->order_type = $request->input('order_type');
+        $order->contactNo = $request->input('contactNo');
+        $order->sub_total = $request->input('sub_total');
+        $order->discount = $request->input('discount');
+        $order->grand_total = $request->input('grand_total');
+        $order->payment_mode = $request->input('payment_mode');
+        $order->order_status = $request->input('order_status');
+    
+        $order->save();
+    
+        return response()->json(['Message' => 'Order updated successfully']);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
       //Fetch data from database
       public function fetchOrderDetailsData()
       {
