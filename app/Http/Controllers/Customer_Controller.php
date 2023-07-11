@@ -120,6 +120,7 @@ class Customer_Controller extends Controller
 
         $customer->c_name = $request->input('c_name');
         $customer->c_mobile_no = $request->input('c_mobile_no');
+        $customer->c_alternate_mobile_no = $request->input('c_alternate_mobile_no');
         $customer->c_email = $request->input('c_email');
         $customer->c_pincode = $request->input('c_pincode');
         $customer->c_state = $request->input('c_state');
