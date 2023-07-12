@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Barcode_Controller;
 use App\Http\Controllers\Company_Controller;
 use App\Http\Controllers\Customer_Controller;
 use App\Http\Controllers\Enquiry_Controller;
@@ -12,6 +13,8 @@ use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
 use App\Http\Controllers\Staff_Payment_Controller;
 use App\Http\Controllers\Supplier_Controller;
+use App\Http\Controllers\Weight_Controller;
+use App\Models\Barcode_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Expense_Controller;
@@ -164,6 +167,9 @@ Route::post('/addOrder',[Order_details_controller::class,'addOrder']);
 
 Route::put('/updateOrderDetails/{unique_id}',[Order_details_controller::class,'updateOrder']);
 
+Route::put('/cancleOrder/{unique_id}',[Order_details_controller::class,'addReason']);
+
+
 
 Route::get('/fetchOrder',[Order_details_controller::class,'fetchOrderDetailsData']);
 
@@ -188,3 +194,10 @@ Route::post('/addPurchasedDetails',[PurchaseDetailController::class,'store']);
 Route::get('/fetch_all_purchased_details',[PurchaseDetailController::class,'index']);
 
 Route::get('/fetch_by_invoices_no/{invoice_no}',[PurchaseDetailController::class,'show']);
+
+
+// Barcode and Weight Routing
+
+Route::post('/addWeight',[Weight_Controller::class,'addWeight']);
+
+Route::post('/addBarcode',[Barcode_Controller::class,'addBarcode']);

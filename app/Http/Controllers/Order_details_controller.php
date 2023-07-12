@@ -62,17 +62,6 @@ class Order_details_controller extends Controller
         return response()->json(['Message' => 'Order updated successfully']);
     }
     
-    
-
-
-
-
-
-
-
-
-
-
 
       //Fetch data from database
       public function fetchOrderDetailsData()
@@ -82,5 +71,29 @@ class Order_details_controller extends Controller
           return response()->json([
               'data' => $orders,
           ]);
+      }
+
+
+
+      // Update order status and add cancel reason 
+
+      public function addReason(Request $request,$unique_id)
+      {
+        $order = Order_details_model::where('unique_id', $unique_id)->first();
+
+        if(!$order)
+        {
+            return response()->json(['Message' => 'Order not found']);
+        }
+
+        $order->order_status = "Cancel";
+        $order->cancel_reason = $request->input('cancel_reason');
+
+        $order->save();
+
+        return response()->json([
+            'message' => 'Order Cancelled Successfully',
+        ]);
+
       }
 }
