@@ -50,7 +50,7 @@ class Order_details_controller extends Controller
         $order->order_date = $request->input('order_date');
 
         $order->order_type = $request->input('order_type');
-        $order->contactNo = $request->input('contactNo');
+        $order->contact_no = $request->input('contactNo');
         $order->sub_total = $request->input('sub_total');
         $order->discount = $request->input('discount');
         $order->grand_total = $request->input('grand_total');
