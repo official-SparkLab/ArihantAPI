@@ -22,6 +22,7 @@ class Order_details_model extends Model
         'discount',
         'grand_total',
         'payment_mode',
-        'order_status'
+        'order_status',
+        'cancel_reason'
     ];
 }
