@@ -131,6 +131,7 @@ class Customer_Controller extends Controller
         $customer->c_village = $request->input('c_village');
         $customer->c_address = $request->input('c_address');
         $customer->c_note = $request->input('c_note');
+        $customer->source = "Manual";
         $customer->save();
 
         return response()->json(['message' => 'Customer Updated Successfully'], 200);
