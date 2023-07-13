@@ -24,6 +24,7 @@ class Customer_Model extends Model
         'c_post_office',
         'c_village',
         'c_address',
-        'c_note'
+        'c_note',
+        'source'
     ];
 }
