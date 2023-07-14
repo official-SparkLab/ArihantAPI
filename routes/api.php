@@ -161,7 +161,7 @@ Route :: put('/addReason/{e_id}', [Enquiry_Controller::class,'addReason']);
 
 Route::post('/productOrder',[Ordered_Product_Controller::class,'addOrder']);
 
-Route::put('/updateProductOrder/{unique_id}',[Ordered_Product_Controller::class,'updateOrder']);
+Route::post('/updateProductOrder/{unique_id}',[Ordered_Product_Controller::class,'updateOrder']);
 
 Route::post('/addOrder',[Order_details_controller::class,'addOrder']);
 
