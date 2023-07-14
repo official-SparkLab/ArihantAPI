@@ -61,6 +61,7 @@ class Ordered_Product_Controller extends Controller
 
 
 
+    // Update Orderd Product
     public function updateOrder(Request $request, $unique_id)
     {
         $product = Ordered_Product_Model::where('unique_id', $unique_id)->first();
