@@ -66,7 +66,9 @@ class Ordered_Product_Controller extends Controller
         $product = Ordered_Product_Model::where('unique_id', $unique_id)->first();
     
         if (!$product) {
-            return response()->json(['Message' => 'Product not found']);
+            // Product not found, create a new one
+            $product = new Ordered_Product_Model();
+            $product->unique_id = $unique_id;
         }
     
         $product->p_id = $request->input('p_id');
@@ -77,8 +79,10 @@ class Ordered_Product_Controller extends Controller
     
         $product->save();
     
-        return response()->json(['Message' => 'Product updated successfully']);
+        $message = $product->wasRecentlyCreated ? 'Product added successfully' : 'Product updated successfully';
+        return response()->json(['Message' => $message]);
     }
+    
     
 
 
