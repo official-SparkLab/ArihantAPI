@@ -74,30 +74,23 @@ class Ordered_Product_Controller extends Controller
         // Check if the product ID has changed
         $inputProductId = $request->input('p_id');
         if ($product->p_id !== $inputProductId) {
-            // Product ID has changed, create a new record
-            $newProduct = new Ordered_Product_Model();
-            $newProduct->unique_id = $unique_id;
-            $newProduct->p_id = $inputProductId;
-            $newProduct->product_name = $request->input('product_name');
-            $newProduct->quantity = $request->input('quantity');
-            $newProduct->rate = $request->input('rate');
-            $newProduct->total = $request->input('total');
-            $newProduct->save();
-    
+            // Product ID has changed, create a new record 
+            $product->p_id = $inputProductId;
             $message = 'New product added successfully';
         } else {
             // Product ID is the same, update the existing record
-            $product->product_name = $request->input('product_name');
-            $product->quantity = $request->input('quantity');
-            $product->rate = $request->input('rate');
-            $product->total = $request->input('total');
-            $product->save();
-    
             $message = 'Product updated successfully';
         }
     
+        $product->product_name = $request->input('product_name');
+        $product->quantity = $request->input('quantity');
+        $product->rate = $request->input('rate');
+        $product->total = $request->input('total');
+        $product->save();
+    
         return response()->json(['Message' => $message]);
     }
+    
 
     
     

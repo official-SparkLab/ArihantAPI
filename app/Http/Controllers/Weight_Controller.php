@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class Weight_Controller extends Controller
 {
+    // Weight add api
     public function addWeight(Request $request)
     {
         $order = new Weight_Model;
