@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class Barcode_Controller extends Controller
 {
+
+    // Barcode add api
     public function addBarcode(Request $request)
     {
         $order = new Barcode_Model;
