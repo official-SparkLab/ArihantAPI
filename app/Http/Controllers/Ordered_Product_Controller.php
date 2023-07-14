@@ -74,7 +74,7 @@ class Ordered_Product_Controller extends Controller
         // Check if the product ID has changed
         $inputProductId = $request->input('p_id');
         if ($product->p_id !== $inputProductId) {
-            // Product ID has changed, create a new record
+            // Product ID has changed, create a new 
             
             $product->unique_id = $unique_id;
             $product->p_id = $inputProductId;
