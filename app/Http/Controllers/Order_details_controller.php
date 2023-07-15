@@ -96,4 +96,45 @@ class Order_details_controller extends Controller
         ]);
 
       }
+
+
+
+      // Ship Order 
+      public function shipOrder($unique_id)
+      {
+        $order = Order_details_model::where('unique_id', $unique_id)->first();
+
+        if(!$order)
+        {
+            return response()->json(['Message' => 'Order not found']);
+        }
+
+        $order->order_status = "In transit";
+        $order->save();
+
+        return response()->json([
+            'message' => 'Order Shipped Successfully',
+        ]);
+
+      }
+
+
+      // Deleverd Successfully
+      public function deliverOrder($unique_id)
+      {
+        $order = Order_details_model::where('unique_id', $unique_id)->first();
+
+        if(!$order)
+        {
+            return response()->json(['Message' => 'Order not found']);
+        }
+
+        $order->order_status = "Delivered";
+        $order->save();
+
+        return response()->json([
+            'message' => 'Order Delivered Successfully',
+        ]);
+
+      }
 }
