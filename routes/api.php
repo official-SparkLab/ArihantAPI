@@ -205,6 +205,6 @@ Route::post('/addBarcode',[Barcode_Controller::class,'addBarcode']);
 
 // Shiped and Delivered Order Routing
 
-Route::put('/shippeOrder',[Order_details_controller::class,'shipOrder']);
+Route::put('/shippeOrder/{unique_id}',[Order_details_controller::class,'shipOrder']);
 
-Route::put('/deliverOrder',[Order_details_controller::class,'deliverOrder']);
+Route::put('/deliverOrder{unique_id}',[Order_details_controller::class,'deliverOrder']);
