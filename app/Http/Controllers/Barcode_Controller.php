@@ -15,6 +15,8 @@ class Barcode_Controller extends Controller
 
         $order->order_no = $request->input('order_no');
         $order->barcode = $request->input('barcode');
+        $order->unique_id = $request->input('unique_id');
+
 
         $order->save();
 
@@ -27,13 +29,18 @@ class Barcode_Controller extends Controller
         }
     }
 
-    public function fetchBarcode()
+
+    public function fetchBarcode($unique_id)
     {
-        $barcode = Barcode_Model::all();
+        $barcode = Barcode_Model::where('unique_id', $unique_id)->first();
     
-        return response()->json([
-            'data' => $barcode,
-        ]);
+        if ($barcode) {
+            return response()->json(['data' => $barcode]);
+        } else {
+            return response()->json(["Message" => "barcode not found"]);
+        }
     }
+
+  
     
 }

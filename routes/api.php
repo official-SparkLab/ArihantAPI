@@ -217,7 +217,7 @@ Route::get('/fetchOrderDetails',[JoinTableController::class,'showOrdersWithCusto
 
 Route::get('/fetchBarcodeandWeight',[JoinTableController::class,'showBarcodandWeight']);
 
-Route::get('/fetchBarcode',[Barcode_Controller::class,'fetchBarcode']);
+Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode']);
 
-Route::get('/fetchWeight',[Weight_Controller::class,'fetchWeight']);
+Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 

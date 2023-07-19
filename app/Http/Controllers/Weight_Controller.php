@@ -14,6 +14,8 @@ class Weight_Controller extends Controller
 
         $order->order_no = $request->input('order_no');
         $order->weight = $request->input('weight');
+        $order->unique_id = $request->input('unique_id');
+
 
         $order->save();
 
@@ -27,12 +29,17 @@ class Weight_Controller extends Controller
     }
 
 
-    public function fetchWeight()
+    public function fetchWeight($unique_id)
     {
-        $weight = Weight_Model::all();
+        $weight = Weight_Model::where('unique_id', $unique_id)->first();
     
-        return response()->json([
-            'data' => $weight,
-        ]);
+        if ($weight) {
+            return response()->json(['data' => $weight]);
+        } else {
+            return response()->json(["Message" => "weight not found"]);
+        }
     }
+
+
+    
 }
