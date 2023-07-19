@@ -26,4 +26,17 @@ class Barcode_Controller extends Controller
             return response()->json(['message'=>'Failed to add Barcode']);
         }
     }
+
+      //Fetch Data based On order number
+
+    public function fetchCustomers($order_no)
+    {
+        $barcode = Barcode_Model::where('order_no', $order_no)->first();
+    
+        if ($barcode) {
+            return response()->json(['data' => $barcode]);
+        } else {
+            return response()->json(["Message" => "Barcode not found"]);
+        }
+    }
 }
