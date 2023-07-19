@@ -25,4 +25,16 @@ class Weight_Controller extends Controller
             return response()->json(['message'=>'Faild to add Weight']);
         }
     }
+
+    //Fetch Weight by order no
+    public function fetchBarcode($weight)
+    {
+        $weight = Weight_Model::where('order_no', $weight)->first();
+    
+        if ($weight) {
+            return response()->json(['data' => $weight]);
+        } else {
+            return response()->json(["Message" => "Weight not found"]);
+        }
+    }
 }
