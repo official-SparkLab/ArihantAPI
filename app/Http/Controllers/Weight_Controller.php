@@ -25,4 +25,14 @@ class Weight_Controller extends Controller
             return response()->json(['message'=>'Faild to add Weight']);
         }
     }
+
+
+    public function fetchWeight()
+    {
+        $weight = Weight_Model::all();
+    
+        return response()->json([
+            'data' => $weight,
+        ]);
+    }
 }

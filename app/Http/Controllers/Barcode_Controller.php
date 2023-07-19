@@ -26,4 +26,14 @@ class Barcode_Controller extends Controller
             return response()->json(['message'=>'Failed to add Barcode']);
         }
     }
+
+    public function fetchBarcode()
+    {
+        $barcode = Barcode_Model::all();
+    
+        return response()->json([
+            'data' => $barcode,
+        ]);
+    }
+    
 }
