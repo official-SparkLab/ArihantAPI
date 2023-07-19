@@ -15,7 +15,8 @@ class Barcode_Model extends Model
 
     protected $fillable = [
         'order_no',
-        'barcode'
+        'barcode',
+        'unique_id'
     ];
 
 

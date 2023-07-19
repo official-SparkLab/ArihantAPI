@@ -16,6 +16,7 @@ class Weight_Model extends Model
     protected $fillable = [
         'order_no',
         'weight',
+        'unique_id'
     ];
 
 
