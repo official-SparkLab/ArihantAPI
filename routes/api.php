@@ -4,6 +4,7 @@ use App\Http\Controllers\Barcode_Controller;
 use App\Http\Controllers\Company_Controller;
 use App\Http\Controllers\Customer_Controller;
 use App\Http\Controllers\Enquiry_Controller;
+use App\Http\Controllers\JoinTableController;
 use App\Http\Controllers\Ordered_Product_Controller;
 use App\Http\Controllers\Order_details_controller;
 use App\Http\Controllers\Product_Controller;
@@ -208,3 +209,10 @@ Route::post('/addBarcode',[Barcode_Controller::class,'addBarcode']);
 Route::put('/shippeOrder/{unique_id}',[Order_details_controller::class,'shipOrder']);
 
 Route::put('/deliverOrder{unique_id}',[Order_details_controller::class,'deliverOrder']);
+
+
+// Joining order details and customer details
+
+Route::get('/fetchOrderDetails',[JoinTableController::class,'showOrdersWithCustomerData']);
+
+Route::get('/fetchBarcodeandWeight',[JoinTableController::class,'showBarcodandWeight']);
