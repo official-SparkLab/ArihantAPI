@@ -17,4 +17,11 @@ class Weight_Model extends Model
         'order_no',
         'weight',
     ];
+
+
+    // Define the inverse relationship between Weight_Model and Barcode_Model
+    public function barcode()
+    {
+        return $this->belongsTo(Barcode_Model::class, 'order_no', 'order_no');
+    }
 }

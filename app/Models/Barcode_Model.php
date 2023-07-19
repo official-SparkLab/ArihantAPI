@@ -17,4 +17,11 @@ class Barcode_Model extends Model
         'order_no',
         'barcode'
     ];
+
+
+    // Define the relationship between Barcode_Model and Weight_Model
+    public function weight()
+    {
+        return $this->hasOne(Weight_Model::class, 'order_no', 'order_no');
+    }
 }

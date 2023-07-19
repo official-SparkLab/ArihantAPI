@@ -27,4 +27,9 @@ class Customer_Model extends Model
         'c_note',
         'source'
     ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(Order_details_model::class, 'contact_no', 'c_mobile_no');
+    }
 }

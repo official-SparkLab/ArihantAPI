@@ -86,7 +86,7 @@ class Order_details_controller extends Controller
             return response()->json(['Message' => 'Order not found']);
         }
 
-        $order->order_status = "Cancel";
+        $order->order_status = "Cancelled";
         $order->cancel_reason = $request->input('cancel_reason');
 
         $order->save();

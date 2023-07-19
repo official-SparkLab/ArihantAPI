@@ -25,4 +25,9 @@ class Order_details_model extends Model
         'order_status',
         'cancel_reason'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer_Model::class, 'contact_no', 'c_mobile_no');
+    }
 }
