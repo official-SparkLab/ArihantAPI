@@ -4,6 +4,7 @@ use App\Http\Controllers\Barcode_Controller;
 use App\Http\Controllers\Company_Controller;
 use App\Http\Controllers\Customer_Controller;
 use App\Http\Controllers\Enquiry_Controller;
+use App\Http\Controllers\ExcelDataController;
 use App\Http\Controllers\JoinTableController;
 use App\Http\Controllers\Ordered_Product_Controller;
 use App\Http\Controllers\Order_details_controller;
@@ -220,4 +221,6 @@ Route::get('/fetchBarcodeandWeight',[JoinTableController::class,'showBarcodandWe
 Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode']);
 
 Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
+
+Route :: post('/saveData',[ExcelDataController::class,'saveData']);
 
