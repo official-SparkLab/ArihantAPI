@@ -222,5 +222,5 @@ Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode'
 
 Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 
-Route :: post('/savedata',[ExcelDataController::class,'saveData']);
+
 
