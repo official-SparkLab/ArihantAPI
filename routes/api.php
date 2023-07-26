@@ -15,6 +15,7 @@ use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
 use App\Http\Controllers\Staff_Payment_Controller;
 use App\Http\Controllers\Supplier_Controller;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Weight_Controller;
 use App\Models\Barcode_Model;
 use Illuminate\Http\Request;
@@ -222,5 +223,7 @@ Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode'
 
 Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 
+//User Routing 
 
+Route::post('/addUser',[UserController::class,'createUser']);
 
