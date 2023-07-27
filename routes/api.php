@@ -227,3 +227,8 @@ Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 
 Route::post('/addUser',[UserController::class,'createUser']);
 
+Route::get('/fetchUser',[UserController::class,'fetchUsers']);
+
+Route::put('/updateUser/{user_id}',[UserController::class,'updateUser']);
+
+Route::delete('/deleteuser/{user_id',[UserController::class,'deleteUserData']);
