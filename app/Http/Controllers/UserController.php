@@ -43,7 +43,7 @@ class UserController extends Controller
         $user->user_gender = $request->input("user_gender");
         $user->user_contact = $request->input("user_contact");
         $user->user_email = $request->input("user_email");
-        $user->user_password = bcrypt($request->input("user_password"));
+        $user->user_password = $request->input("user_password");
 
         $user->save();
 
@@ -56,4 +56,52 @@ class UserController extends Controller
         }
 
     }
+
+
+    public function fetchUsers()
+      {
+          $users = User::all();
+      
+          return response()->json([
+              'data' => $users,
+          ]);
+      }
+
+        // Delete Expense data 
+    public function deleteUserData($user_id)
+    {
+        $user = User::findOrFail($user_id); // Set the status column to 0 (or any other value that represents a deleted/expired status)
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Record deleted',
+        ]);
+    }
+
+    public function updateUser(Request $request,$user_id)
+    {
+        $user = User::find($user_id);
+        if (!$user) {
+            return response()->json(['message' => 'user not found'], 404);
+        }
+
+        $user->user_name = $request->input("user_name");
+        $user->user_gender = $request->input("user_gender");
+        $user->user_contact = $request->input("user_contact");
+        $user->user_email = $request->input("user_email");
+        $user->user_password = $request->input("user_password");
+
+        $user->save();
+
+        if($user)
+        {
+            return response()->json(["Message" => "User updated successfully"]);
+        }
+        else {
+            return response()->json(["Message" => "Failed to update user"]);
+        }
+
+
+    }
+
 }
