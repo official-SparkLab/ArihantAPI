@@ -13,6 +13,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
   protected $table = "tbl_users";
+  protected $primaryKey = 'user_id';
+
     protected $fillable = [
       'user_name',
       'user_gender',
