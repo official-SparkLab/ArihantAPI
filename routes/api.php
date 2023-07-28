@@ -234,3 +234,5 @@ Route::put('/updateUser/{user_id}',[UserController::class,'updateUser']);
 Route::delete('/deleteuser/{user_id}',[UserController::class,'deleteUserData']); 
 
 Route::get('/userById/{user_id}',[UserController::class,'fetchDataById']);
+
+Route::post('/userLogin',[UserController::class,'login']);
