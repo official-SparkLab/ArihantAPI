@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class UserController extends Controller
@@ -120,5 +122,22 @@ class UserController extends Controller
             'data' => $user,
         ]);
     }
+
+
+    public function login(Request $request)
+{
+    $credentials = $request->only('user_email', 'user_password');
+
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+
+        return response()->json([
+            'name' => $user->user_name,
+            'message' => 'Login Successfully'
+        ], 200);
+    } else {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+}
 
 }
