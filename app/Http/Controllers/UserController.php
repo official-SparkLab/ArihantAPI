@@ -104,4 +104,21 @@ class UserController extends Controller
 
     }
 
+
+
+    public function fetchDataById($user_id)
+    {
+        $user = User::find($user_id);
+     
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+     
+        return response()->json([
+            'data' => $user,
+        ]);
+    }
+
 }
