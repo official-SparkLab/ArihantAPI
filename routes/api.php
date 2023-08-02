@@ -11,6 +11,8 @@ use App\Http\Controllers\Order_details_controller;
 use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\PurchasedProductController;
+use App\Http\Controllers\Purchase_Payble_Controller;
+use App\Http\Controllers\Sale_Payble_Controller;
 use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
 use App\Http\Controllers\Staff_Payment_Controller;
@@ -236,3 +238,19 @@ Route::delete('/deleteuser/{user_id}',[UserController::class,'deleteUserData']);
 Route::get('/userById/{user_id}',[UserController::class,'fetchDataById']);
 
 Route::post('/userLogin',[UserController::class,'login']);
+
+
+// Sale Payble and Purchase Payble routing
+
+Route::post('/addPurchase',[Purchase_Payble_Controller::class,'addPurchaseData']);
+
+Route::get('/getPurchase',[Purchase_Payble_Controller::class,'getPurchaseDetails']);
+
+Route::get('/getPurchase/{contact_no}',[Purchase_Payble_Controller::class,'fetchByContact']);
+
+
+Route::post('/addSale',[Sale_Payble_Controller::class,'addSaleData']);
+
+Route::get('/getSale',[Sale_Payble_Controller::class,'getsaleDetails']);
+
+Route::get('/getSale/{contact_no}',[Sale_Payble_Controller::class,'fetchByContact']);
