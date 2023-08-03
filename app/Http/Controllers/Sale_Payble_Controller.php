@@ -35,7 +35,7 @@ class Sale_Payble_Controller extends Controller
     {
         $sale = Sale_Payble_Model::all();
 
-        return response()->json([$sale, 200]);
+        return response()->json(["data"=>$sale],200);
     
     }
 

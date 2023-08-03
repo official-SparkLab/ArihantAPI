@@ -71,6 +71,8 @@ Route::get('/fetchSuppliersData', [Supplier_Controller::class, 'fetchSuppliersDa
 
 Route::get('/fetchSuppliersData/{s_name}', [Supplier_Controller::class, 'fetchDataById']);
 
+Route :: get('/fetchSupplierByContact/{s_mobile_no}', [Supplier_Controller::class,'fetchsupplier']);
+
 Route::put('/addSupplier/{s_id}',[Supplier_Controller::class, 'updateSupplier']);
 
 Route::delete('/deleteSupplierData/{s_id}', [Supplier_Controller::class, 'deleteSupplierData']);

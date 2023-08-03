@@ -35,7 +35,7 @@ class Purchase_Payble_Controller extends Controller
     {
         $purchase = Purchase_Payble_Model::all();
 
-        return response()->json([$purchase, 200]);
+        return response()->json(["data"=>$purchase],200);
     
     }
 
