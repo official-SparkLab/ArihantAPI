@@ -43,7 +43,7 @@ class Sale_Payble_Controller extends Controller
 
       public function fetchByContact($contact_no)
       {
-          $sale = Sale_Payble_Model::where('contact_no', $contact_no)->first();
+          $sale = Sale_Payble_Model::where('contact_no', $contact_no)->get();
       
           if ($sale) {
               return response()->json(['data' => $sale]);
