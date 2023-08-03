@@ -123,4 +123,19 @@ class Supplier_Controller extends Controller
             'message' => 'Record deleted',
         ]);
     }
+
+
+
+      //Fetch Data based On contact number
+
+      public function fetchsupplier($s_mobile_no)
+      {
+          $supplier = Supplier_Model::where('s_mobile_no', $s_mobile_no)->first();
+      
+          if ($supplier) {
+              return response()->json(['data' => $supplier]);
+          } else {
+              return response()->json(["Message" => "supplier not found"]);
+          }
+      }
 }
