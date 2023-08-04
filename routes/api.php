@@ -221,7 +221,7 @@ Route::put('/deliverOrder{unique_id}',[Order_details_controller::class,'deliverO
 
 Route::get('/fetchOrderDetails',[JoinTableController::class,'showOrdersWithCustomerData']);
 
-Route::get('/fetchOrderDetails/{contact_no}',[JoinTableController::class,'showOrdersWithCustomerContact']);
+Route::get('/fetchOrderDetailsBy/{contact_no}',[JoinTableController::class,'showOrdersWithCustomerContact']);
 
 Route::get('/fetchOrderDetails/{contact_no}/{unique_id}',[JoinTableController::class,'showOrdersWithCustomerContactandUniqueId']);
 
