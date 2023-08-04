@@ -221,6 +221,8 @@ Route::put('/deliverOrder{unique_id}',[Order_details_controller::class,'deliverO
 
 Route::get('/fetchOrderDetails',[JoinTableController::class,'showOrdersWithCustomerData']);
 
+Route::get('/fetchOrderDetails/{contact_no}',[JoinTableController::class,'showOrdersWithCustomerContact']);
+
 Route::get('/fetchBarcodeandWeight',[JoinTableController::class,'showBarcodandWeight']);
 
 Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode']);
