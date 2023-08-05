@@ -13,6 +13,7 @@ class PurchaseDetailController extends Controller
         $purchaseDetails = new PurchaseDetail;
         $purchaseDetails->invoice_no = $request->input('invoice_no');
         $purchaseDetails->date = $request->input('date');
+        $purchaseDetails->contact_no = $request->input('contact_no');
         $purchaseDetails->supplier_name = $request->input('supplier_name');
         $purchaseDetails->place_of_supply = $request->input('place_of_supply');
         $purchaseDetails->dispatch_no = $request->input('dispatch_no');
@@ -38,9 +39,9 @@ class PurchaseDetailController extends Controller
         return response()->json($purchaseDetails, 200);
     }
 
-    public function show($invoice_no)
+    public function show($contact_no)
     {
-        $purchaseDetail = PurchaseDetail::where('invoice_no', $invoice_no)->first();
+        $purchaseDetail = PurchaseDetail::where('contact_no', $contact_no)->get();
 
         if (!$purchaseDetail) {
             return response()->json(['message' => 'Data not found'], 404);

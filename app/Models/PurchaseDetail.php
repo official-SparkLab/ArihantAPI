@@ -11,6 +11,7 @@ class PurchaseDetail extends Model
     protected $fillable = [
         'invoice_no',
         'date',
+        'contact_no',
         'supplier_name',
         'place_of_supply',
         'dispatch_no',
