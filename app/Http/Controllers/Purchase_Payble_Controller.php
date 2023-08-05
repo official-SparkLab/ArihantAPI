@@ -43,7 +43,7 @@ class Purchase_Payble_Controller extends Controller
 
       public function fetchByContact($contact_no)
       {
-          $purchase = Purchase_Payble_Model::where('contact_no', $contact_no)->first();
+          $purchase = Purchase_Payble_Model::where('contact_no', $contact_no)->get();
       
           if ($purchase) {
               return response()->json(['data' => $purchase]);

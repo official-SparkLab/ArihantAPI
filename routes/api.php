@@ -200,7 +200,7 @@ Route::post('/addPurchasedDetails',[PurchaseDetailController::class,'store']);
 
 Route::get('/fetch_all_purchased_details',[PurchaseDetailController::class,'index']);
 
-Route::get('/fetch_by_invoices_no/{invoice_no}',[PurchaseDetailController::class,'show']);
+Route::get('/fetch_all_purchased_details/{contact_no}',[PurchaseDetailController::class,'show']);
 
 
 // Barcode and Weight Routing
