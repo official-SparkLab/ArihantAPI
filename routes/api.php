@@ -12,6 +12,7 @@ use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\PurchasedProductController;
 use App\Http\Controllers\Purchase_Payble_Controller;
+use App\Http\Controllers\RohitController;
 use App\Http\Controllers\Sale_Payble_Controller;
 use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
@@ -185,6 +186,9 @@ Route::delete('/deleteOrderdProduct/{unique_id}/{p_id}',[Ordered_Product_Control
 Route::get('/fetchOrderedProduct/{unique_id}',[Ordered_Product_Controller::class,'fetchOrderedProduct']);
 
 
+Route::get('/fetchOrderCount',[Order_details_controller::class,'fetchOrderDetailsData1']);
+
+
 // Purchased Routing
 
 Route::post('/addPurchasedProduct',[PurchasedProductController::class,'store']);
@@ -261,3 +265,5 @@ Route::post('/addSale',[Sale_Payble_Controller::class,'addSaleData']);
 Route::get('/getSale',[Sale_Payble_Controller::class,'getsaleDetails']);
 
 Route::get('/getSale/{contact_no}',[Sale_Payble_Controller::class,'fetchByContact']);
+
+
