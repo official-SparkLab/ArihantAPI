@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Order_details_controller extends Controller
 {
     //
-    
+
     public function addOrder(Request $request)
     {
         try {
@@ -26,7 +26,7 @@ class Order_details_controller extends Controller
                 $request->input('payment_mode'),
                 $request->input('order_status'),
             ]);
-    
+
             if ($result) {
                 return response()->json(["Message" => "Order Added"]);
             } else {
@@ -41,11 +41,11 @@ class Order_details_controller extends Controller
     public function updateOrder(Request $request, $unique_id)
     {
         $order = Order_details_model::where('unique_id', $unique_id)->first();
-    
+
         if (!$order) {
             return response()->json(['Message' => 'Order not found']);
         }
-    
+
 
         $order->order_date = $request->input('order_date');
 
@@ -56,33 +56,64 @@ class Order_details_controller extends Controller
         $order->grand_total = $request->input('grand_total');
         $order->payment_mode = $request->input('payment_mode');
         $order->order_status = $request->input('order_status');
-    
+
         $order->save();
-    
+
         return response()->json(['Message' => 'Order updated successfully']);
     }
-    
-
-      //Fetch data from database
-      public function fetchOrderDetailsData()
-      {
-          $orders = Order_details_model::all();
-      
-          return response()->json([
-              'data' => $orders,
-          ]);
-      }
 
 
+    //Fetch data from database
+    public function fetchOrderDetailsData()
+    {
+        $orders = Order_details_model::all();
 
-      // Update order status and add cancel reason 
+        return response()->json([
+            'data' => $orders,
+        ]);
+    }
 
-      public function addReason(Request $request,$unique_id)
-      {
+    public function getOrderStatusLength($order_status)
+    {
+        $statusCount = Order_details_model::where('order_status', $order_status)->count();
+
+        return response()->json([
+            'status' => $order_status,
+            'status_count' => $statusCount,
+        ]);
+    }
+
+    public function fetchOrderDetailsData1()
+{
+     $totalOrderCount = Order_details_model::count();
+    $cancelOrderCount = $this->getOrderStatusLength('Cancelled');
+    $deliveredOrderCount = $this->getOrderStatusLength('Delivered');
+    $fulfilledOrderCount = $this->getOrderStatusLength('Fulfilled');
+    $returnOrderCount = $this->getOrderStatusLength('Returned');
+
+
+    return response()->json([
+        'cancel_orders_count' => $cancelOrderCount,
+        'return_orders_count' => $returnOrderCount,
+        'delivered_orders_count' => $deliveredOrderCount,
+        'fulfilled_orders_count' => $fulfilledOrderCount,
+        'total_orders_count' => $totalOrderCount,
+
+
+    ]);
+}
+
+
+
+
+
+    // Update order status and add cancel reason 
+
+    public function addReason(Request $request, $unique_id)
+    {
         $order = Order_details_model::where('unique_id', $unique_id)->first();
 
-        if(!$order)
-        {
+        if (!$order) {
             return response()->json(['Message' => 'Order not found']);
         }
 
@@ -95,17 +126,16 @@ class Order_details_controller extends Controller
             'message' => 'Order Cancelled Successfully',
         ]);
 
-      }
+    }
 
 
 
-      // Ship Order 
-      public function shipOrder($unique_id)
-      {
+    // Ship Order 
+    public function shipOrder($unique_id)
+    {
         $order = Order_details_model::where('unique_id', $unique_id)->first();
 
-        if(!$order)
-        {
+        if (!$order) {
             return response()->json(['Message' => 'Order not found']);
         }
 
@@ -116,16 +146,15 @@ class Order_details_controller extends Controller
             'message' => 'Order Shipped Successfully',
         ]);
 
-      }
+    }
 
 
-      // Deleverd Successfully
-      public function deliverOrder($unique_id)
-      {
+    // Deleverd Successfully
+    public function deliverOrder($unique_id)
+    {
         $order = Order_details_model::where('unique_id', $unique_id)->first();
 
-        if(!$order)
-        {
+        if (!$order) {
             return response()->json(['Message' => 'Order not found']);
         }
 
@@ -136,5 +165,5 @@ class Order_details_controller extends Controller
             'message' => 'Order Delivered Successfully',
         ]);
 
-      }
+    }
 }
