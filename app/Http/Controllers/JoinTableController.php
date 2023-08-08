@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barcode_Model;
 use App\Models\Order_details_model;
+use App\Models\Sale_Payble_Model;
 use Illuminate\Http\Request;
 
 class JoinTableController extends Controller
@@ -58,7 +59,17 @@ public function showOrdersWithCustomerContact($contact_no)
             'data' => $combinedData,
         ]);
     }
+    
 
+    public function fetchCombinedData($contact_no)
+{
+    $sales = Sale_Payble_Model::where('contact_no', $contact_no)
+                              ->join('Order_details_model', 'Sale_Payble_Model.contact_no', '=', 'Order_details_model.contact_no')
+                              ->whereIn('Order_details_model.order_status', ['Delivered', 'Fulfilled'])
+                              ->select('Sale_Payble_Model.*')
+                              ->get();
 
+    return response()->json(["data" => $sales], 200);
+}
 
 }
