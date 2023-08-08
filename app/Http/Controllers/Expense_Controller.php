@@ -38,6 +38,16 @@ class Expense_Controller extends Controller
         ]);
     }
 
+    public function fetchExpenseDatabyDate($startDate, $endDate)
+{
+    $expenses = Expenses_Model::whereBetween('exp_date', [$startDate, $endDate])->get();
+
+    return response()->json([
+        'data' => $expenses,
+    ]);
+}
+
+
     // Delete Expense data 
     public function deleteExpenses($exp_id)
     {

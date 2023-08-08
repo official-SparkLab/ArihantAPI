@@ -47,6 +47,9 @@ Route::get('/fetchExpensesData', [Expense_Controller::class, 'fetchExpenseData']
 
 Route::get('/fetchExpensesData/{exp_id}', [Expense_Controller::class, 'fetchDataById']);
 
+Route::get('/fetchExpensesDataByDate/{startDate}/{endDate}', [Expense_Controller::class, 'fetchExpenseDatabyDate']);
+
+
 Route::delete('/deleteExpenseData/{exp_id}', [Expense_Controller::class, 'deleteExpenses']);
 
 Route::put('/expenses/{exp_id}',[Expense_Controller::class, 'updateExpense']);
