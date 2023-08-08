@@ -61,16 +61,17 @@ class JoinTableController extends Controller
     }
 
 
-    public function fetchCombinedData($contact_no)
-    {
-        $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
-            ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
-            ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
-            ->select('sale_payable.date,sale_payable.cust_name,sale_payable.paid_amount,sale_payable.created_at', 'tbl_order_details.order_date,tbl_order_details.order_no,tbl_order_details.grand_total,tbl_order_details.created_at')
-            ->get();
+  public function fetchCombinedData($contact_no)
+{
+    $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
+        ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
+        ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
+        ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at', 'tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
+        ->get();
 
-        return response()->json(["data" => $sales], 200);
-    }
+    return response()->json(["data" => $sales], 200);
+}
+
 
 
 }
