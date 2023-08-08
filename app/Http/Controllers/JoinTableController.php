@@ -60,21 +60,30 @@ class JoinTableController extends Controller
         ]);
     }
 
-
     public function fetchCombinedDataBetweenDates($contact_no, $fromDate, $toDate)
     {
-        $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
+        // Fetch sale_payable data
+        $salePayables = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
+            ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
+            ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
+            ->whereBetween('sale_payable.date', [$fromDate, $toDate])
+            ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at')
+            ->get();
+    
+        // Fetch order_details data
+        $orderDetails = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
             ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
             ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
             ->whereBetween('tbl_order_details.order_date', [$fromDate, $toDate])
-            ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at', 'tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
+            ->select('tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
             ->get();
     
-    
         return response()->json([
-            "data"=>$sales
+            "sale_payable" => $salePayables,
+            "order_details" => $orderDetails,
         ], 200);
     }
+    
     
 
 
