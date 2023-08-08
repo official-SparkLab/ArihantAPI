@@ -21,4 +21,9 @@ class Sale_Payble_Model extends Model
         'trx_no',
         'description'
     ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(Order_details_model::class, 'contact_no', 'contact_no');
+    }
 }

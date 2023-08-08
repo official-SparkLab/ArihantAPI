@@ -30,4 +30,9 @@ class Order_details_model extends Model
     {
         return $this->belongsTo(Customer_Model::class, 'contact_no', 'c_mobile_no');
     }
+
+    public function Sale()
+    {
+        return $this->belongsTo(Sale_Payble_Model::class, 'contact_no', 'contact_no');
+    }
 }
