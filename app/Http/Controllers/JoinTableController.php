@@ -61,16 +61,41 @@ class JoinTableController extends Controller
     }
 
 
-  public function fetchCombinedData($contact_no)
-{
-    $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
-        ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
-        ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
-        ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at', 'tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
-        ->get();
-
-    return response()->json(["data" => $sales], 200);
-}
+    public function fetchCombinedDataBetweenDates($contact_no, $fromDate, $toDate)
+    {
+        $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
+            ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
+            ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
+            ->whereBetween('sale_payable.date', [$fromDate, $toDate])
+            ->whereBetween('tbl_order_details.order_date', [$fromDate, $toDate])
+            ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at', 'tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
+            ->get();
+    
+        $orderDetails = [];
+        $saleDetails = [];
+    
+        foreach ($sales as $sale) {
+            $orderDetails[] = [
+                'order_date' => $sale->order_date,
+                'order_no' => $sale->order_no,
+                'grand_total' => $sale->grand_total,
+                'created_at' => $sale->created_at,
+            ];
+    
+            $saleDetails[] = [
+                'date' => $sale->date,
+                'cust_name' => $sale->cust_name,
+                'paid_amount' => $sale->paid_amount,
+                'created_at' => $sale->created_at,
+            ];
+        }
+    
+        return response()->json([
+            "order_details" => $orderDetails,
+            "sale_details" => $saleDetails,
+        ], 200);
+    }
+    
 
 
 
