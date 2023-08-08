@@ -62,14 +62,15 @@ public function showOrdersWithCustomerContact($contact_no)
     
 
     public function fetchCombinedData($contact_no)
-{
-    $sales = Sale_Payble_Model::where('contact_no', $contact_no)
-                              ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
-                              ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
-                              ->select('sale_payable.*')
-                              ->get();
-
-    return response()->json(["data" => $sales], 200);
-}
+    {
+        $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
+            ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
+            ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
+            ->select('sale_payable.*')
+            ->get();
+    
+        return response()->json(["data" => $sales], 200);
+    }
+    
 
 }
