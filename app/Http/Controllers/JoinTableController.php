@@ -66,7 +66,7 @@ class JoinTableController extends Controller
         $salePayables = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
             ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
             ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
-            ->whereBetween('sale_payable.date', [$fromDate, $toDate])
+            ->whereBetween('tbl_order_details.order_date', [$fromDate, $toDate])
             ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at')
             ->get();
     
