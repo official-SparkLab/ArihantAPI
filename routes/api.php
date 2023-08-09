@@ -239,7 +239,7 @@ Route::get('/fetchBarcode/{unique_id}',[Barcode_Controller::class,'fetchBarcode'
 
 Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 
-Route::get('/fetchCombinedDataBetweenDates/{contact_no}/{fromDate}/{toDate}',[JoinTableController::class,'fetchCombinedDataBetweenDates']);
+Route::get('/generalLedger/{date1}/{date2}',[JoinTableController::class,'GeneralLedger']);
 
 
 //User Routing 
