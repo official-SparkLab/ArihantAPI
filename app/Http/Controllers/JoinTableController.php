@@ -6,6 +6,7 @@ use App\Models\Barcode_Model;
 use App\Models\Order_details_model;
 use App\Models\Sale_Payble_Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JoinTableController extends Controller
 {
@@ -61,38 +62,47 @@ class JoinTableController extends Controller
     }
 
 
-    public function fetchCombinedDataBetweenDates($contact_no, $fromDate, $toDate)
+    public function GeneralLedger($date1,$date2)
     {
-        $sales = Sale_Payble_Model::where('sale_payable.contact_no', $contact_no)
-            ->join('tbl_order_details', 'sale_payable.contact_no', '=', 'tbl_order_details.contact_no')
-            ->whereIn('tbl_order_details.order_status', ['Delivered', 'Fulfilled'])
-            ->whereBetween('tbl_order_details.order_date', [$fromDate, $toDate])
-            ->select('sale_payable.date', 'sale_payable.cust_name', 'sale_payable.paid_amount', 'sale_payable.created_at', 'tbl_order_details.order_date', 'tbl_order_details.order_no', 'tbl_order_details.grand_total', 'tbl_order_details.created_at')
-            ->get();
-    
-            $orderDetails = [];
-            $saleDetails = [];
-        
-            foreach ($sales as $sale) {
-                $orderDetails[] = [
-                    'order_date' => $sale->order_date,
-                    'order_no' => $sale->order_no,
-                    'grand_total' => $sale->grand_total,
-                    'created_at' => $sale->created_at,
-                ];
-        
-                $saleDetails[] = [
-                    'date' => $sale->date,
-                    'cust_name' => $sale->cust_name,
-                    'paid_amount' => $sale->paid_amount,
-                    'created_at' => $sale->created_at,
-                ];
-            }
-        
-            return response()->json([
-                "order_details" => $orderDetails,
-                "sale_details" => $saleDetails,
-            ], 200);
+                $post=DB::select("
+                SELECT exp_date, exp_name, 0 AS exp_amt, exp_total_amt
+        FROM tbl_expenses_details 
+        where exp_date between '".$date1."' and '".$date2."'
+
+        UNION ALL
+
+        SELECT order_date, concat('Order No:',order_no), '0', grand_total
+        FROM tbl_order_details 
+        where order_date between '".$date1."' and '".$date2."'
+
+        UNION ALL
+
+        SELECT date, concat('Customer Name:' ,cust_name) , paid_amount, '0'
+        FROM sale_payable
+        where date between '".$date1."' and '".$date2."'
+
+        UNION ALL
+
+        SELECT date, concat('Purchase Invoice:',invoice_no), '0', grand_total
+        FROM tbl_purchase_details
+        where date between '".$date1."' and '".$date2."'
+
+        UNION ALL
+
+        SELECT date, concat('Supplier Name:',sup_name),  paid_amount, '0'
+        FROM purchase_payable
+        where date between '".$date1."' and '".$date2."'
+
+
+        ORDER BY exp_date;
+                ");
+
+                return response()->json([
+                    "message" => "Data Fetched successfully",
+                    "status" => "Success",
+                    "data" => $post
+            
+                    ]);
     }
     
 
