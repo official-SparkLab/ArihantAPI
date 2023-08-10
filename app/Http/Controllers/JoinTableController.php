@@ -116,7 +116,7 @@ class JoinTableController extends Controller
     
             UNION ALL
     
-            SELECT date, CONCAT('Customer Name:', cust_name), 'paid_amount', '0'
+            SELECT date, CONCAT('Customer Name:', cust_name), paid_amount, '0'
             FROM sale_payable 
             WHERE date BETWEEN '".$date1."' AND '".$date2."'
             AND contact_no = '".$contact_no."'
