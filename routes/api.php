@@ -241,6 +241,14 @@ Route::get('/fetchWeight/{unique_id}',[Weight_Controller::class,'fetchWeight']);
 
 Route::get('/generalLedger/{date1}/{date2}',[JoinTableController::class,'GeneralLedger']);
 
+Route::get('/customerLedger/{contact_no}/{date1}/{date2}',[JoinTableController::class,'CustomerLedger']);
+
+Route::get('/supplierLedger/{contact_no}/{date1}/{date2}',[JoinTableController::class,'SupplierLedger']);
+
+
+
+
+
 
 //User Routing 
 
