@@ -166,4 +166,23 @@ class Order_details_controller extends Controller
         ]);
 
     }
+
+
+
+    public function IntransitOrders($date1, $date2)
+    {
+        $post = DB::select("
+            SELECT *
+            FROM tbl_order_details 
+            WHERE order_date BETWEEN '".$date1."' AND '".$date2."'
+            AND order_status IN ('In transit')
+            ORDER BY order_date;
+        ");
+    
+        return response()->json([
+            "message" => "Data Fetched successfully",
+            "status" => "Success",
+            "data" => $post
+        ]);
+    }
 }
