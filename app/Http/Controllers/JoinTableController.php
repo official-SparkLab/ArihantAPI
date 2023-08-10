@@ -105,6 +105,57 @@ class JoinTableController extends Controller
                     ]);
     }
     
+    public function CustomerLedger($contact_no, $date1, $date2)
+    {
+        $post = DB::select("
+            SELECT order_date, order_no, 0 AS sub_total, grand_total
+            FROM tbl_order_details 
+            WHERE order_date BETWEEN '".$date1."' AND '".$date2."'
+            AND order_status IN ('Fulfilled', 'Delivered')
+            AND contact_no = '".$contact_no."'
+    
+            UNION ALL
+    
+            SELECT date, CONCAT('Customer Name:', cust_name), 'paid_amount', '0'
+            FROM sale_payable 
+            WHERE date BETWEEN '".$date1."' AND '".$date2."'
+            AND contact_no = '".$contact_no."'
+    
+            ORDER BY order_date;
+        ");
+    
+        return response()->json([
+            "message" => "Data Fetched successfully",
+            "status" => "Success",
+            "data" => $post
+        ]);
+    }
+
+    public function SupplierLedger($contact_no, $date1, $date2)
+    {
+        $post = DB::select("
+            SELECT date, invoice_no, grand_total,0 AS sub_total
+            FROM tbl_purchase_details 
+            WHERE date BETWEEN '".$date1."' AND '".$date2."'
+            AND contact_no = '".$contact_no."'
+    
+            UNION ALL
+    
+            SELECT date, CONCAT('Supplier Name:', sup_name), '0', paid_amount
+            FROM purchase_payable 
+            WHERE date BETWEEN '".$date1."' AND '".$date2."'
+            AND contact_no = '".$contact_no."'
+    
+            ORDER BY date;
+        ");
+    
+        return response()->json([
+            "message" => "Data Fetched successfully",
+            "status" => "Success",
+            "data" => $post
+        ]);
+    }
+    
 
 
 
