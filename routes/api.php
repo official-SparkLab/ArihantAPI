@@ -180,6 +180,9 @@ Route::put('/updateOrderDetails/{unique_id}',[Order_details_controller::class,'u
 
 Route::put('/cancleOrder/{unique_id}',[Order_details_controller::class,'addReason']);
 
+Route::get('/outbond/{date1}/{date2}',[Order_details_controller::class,'IntransitOrders']);
+
+
 
 
 Route::get('/fetchOrder',[Order_details_controller::class,'fetchOrderDetailsData']);
