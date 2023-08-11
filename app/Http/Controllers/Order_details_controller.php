@@ -172,14 +172,20 @@ class Order_details_controller extends Controller
     public function IntransitOrders($date1, $date2)
     {
         $post = DB::select("
-        SELECT * from tbl_add_customer
-        join tbl_order_details ON tbl_add_customer.c_mobile_no in (select tbl_order_details.contact_no from tbl_order_details WHERE order_status ='In transit' AND order_type ='Postal Order' AND (order_date BETWEEN '".$date1."' AND '".$date2."'))
-         join tbl_order_barcode on tbl_order_details.order_no = tbl_order_barcode.order_no
-         join tbl_order_weight on tbl_order_details.order_no = tbl_order_weight.order_no;
-        ");
-
+            SELECT *
+            FROM tbl_add_customer
+            JOIN tbl_order_details ON tbl_add_customer.c_mobile_no = tbl_order_details.contact_no
+            JOIN tbl_order_barcode ON tbl_order_details.order_no = tbl_order_barcode.order_no
+            JOIN tbl_order_weight ON tbl_order_details.order_no = tbl_order_weight.order_no
+            WHERE tbl_order_details.order_status = 'In transit'
+              AND tbl_order_details.order_type = 'Postal Order'
+              AND tbl_order_details.order_date BETWEEN ? AND ?",
+            [$date1, $date2]
+        );
+    
         return response()->json([
             "data" => $post
         ]);
     }
+    
 }
