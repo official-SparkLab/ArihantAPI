@@ -84,24 +84,24 @@ class Order_details_controller extends Controller
     }
 
     public function fetchOrderDetailsData1()
-{
-     $totalOrderCount = Order_details_model::count();
-    $cancelOrderCount = $this->getOrderStatusLength('Cancelled');
-    $deliveredOrderCount = $this->getOrderStatusLength('Delivered');
-    $fulfilledOrderCount = $this->getOrderStatusLength('Fulfilled');
-    $returnOrderCount = $this->getOrderStatusLength('Returned');
+    {
+        $totalOrderCount = Order_details_model::count();
+        $cancelOrderCount = $this->getOrderStatusLength('Cancelled');
+        $deliveredOrderCount = $this->getOrderStatusLength('Delivered');
+        $fulfilledOrderCount = $this->getOrderStatusLength('Fulfilled');
+        $returnOrderCount = $this->getOrderStatusLength('Returned');
 
 
-    return response()->json([
-        'cancel_orders_count' => $cancelOrderCount,
-        'return_orders_count' => $returnOrderCount,
-        'delivered_orders_count' => $deliveredOrderCount,
-        'fulfilled_orders_count' => $fulfilledOrderCount,
-        'total_orders_count' => $totalOrderCount,
+        return response()->json([
+            'cancel_orders_count' => $cancelOrderCount,
+            'return_orders_count' => $returnOrderCount,
+            'delivered_orders_count' => $deliveredOrderCount,
+            'fulfilled_orders_count' => $fulfilledOrderCount,
+            'total_orders_count' => $totalOrderCount,
 
 
-    ]);
-}
+        ]);
+    }
 
 
 
@@ -172,16 +172,13 @@ class Order_details_controller extends Controller
     public function IntransitOrders($date1, $date2)
     {
         $post = DB::select("
-            SELECT *
-            FROM tbl_order_details 
-            WHERE order_date BETWEEN '".$date1."' AND '".$date2."'
-            AND order_status IN ('In transit')
-            ORDER BY order_date;
+        SELECT * from tbl_add_customer
+        join tbl_order_details ON tbl_add_customer.c_mobile_no in (select tbl_order_details.contact_no from tbl_order_details WHERE order_status ='In transit' AND order_type ='Postal Order' AND (order_date BETWEEN '".$date1."' AND '".$date2."'))
+         join tbl_order_barcode on tbl_order_details.order_no = tbl_order_barcode.order_no
+         join tbl_order_weight on tbl_order_details.order_no = tbl_order_weight.order_no;
         ");
-    
+
         return response()->json([
-            "message" => "Data Fetched successfully",
-            "status" => "Success",
             "data" => $post
         ]);
     }
