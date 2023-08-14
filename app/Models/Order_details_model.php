@@ -21,6 +21,8 @@ class Order_details_model extends Model
         'sub_total',
         'discount',
         'grand_total',
+        'paid_amount',
+        'available_bal',
         'payment_mode',
         'order_status',
         'cancel_reason'
