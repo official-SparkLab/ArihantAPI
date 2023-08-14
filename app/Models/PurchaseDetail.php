@@ -19,6 +19,9 @@ class PurchaseDetail extends Model
         'shipping_cost',
         'sub_total',
         'discount',
-        'grand_total'
+        'grand_total',
+        'paid_amount',
+        'available_bal',
+        'payment_mode'
     ];
 }

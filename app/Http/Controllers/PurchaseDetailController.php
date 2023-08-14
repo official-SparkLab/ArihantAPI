@@ -22,6 +22,10 @@ class PurchaseDetailController extends Controller
         $purchaseDetails->sub_total = $request->input('sub_total');
         $purchaseDetails->discount = $request->input('discount');
         $purchaseDetails->grand_total = $request->input('grand_total');
+        $purchaseDetails->paid_amount = $request->input('paid_amount');
+        $purchaseDetails->available_bal = $request->input('available_bal');
+        $purchaseDetails->payment_mode = $request->input('payment_mode');
+
 
         $purchaseDetails->save();
 
