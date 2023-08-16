@@ -12,8 +12,10 @@ use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\PurchasedProductController;
 use App\Http\Controllers\Purchase_Payble_Controller;
+use App\Http\Controllers\Purchase_Payment_Controller;
 use App\Http\Controllers\RohitController;
 use App\Http\Controllers\Sale_Payble_Controller;
+use App\Http\Controllers\Sale_Payment_Controller;
 use App\Http\Controllers\Staff_Advance_Payment_Controller;
 use App\Http\Controllers\Staff_Details_Controller;
 use App\Http\Controllers\Staff_Payment_Controller;
@@ -290,5 +292,16 @@ Route::post('/addSale',[Sale_Payble_Controller::class,'addSaleData']);
 Route::get('/getSale',[Sale_Payble_Controller::class,'getsaleDetails']);
 
 Route::get('/getSale/{contact_no}',[Sale_Payble_Controller::class,'fetchByContact']);
+
+
+// Purchase and Sale Payment Routings
+
+Route::get('/getPurchasePayment/{invoice_no}',[Purchase_Payment_Controller::class,'fetchPayment']);
+
+Route::get('/getSalePayment/{order_no}',[Sale_Payment_Controller::class,'fetchPayment']);
+
+Route::post('/addPurchasePayment',[Purchase_Payment_Controller::class,'addPayment']);
+
+Route::post('/addSalePayment',[Sale_Payment_Controller::class,'addPayment']);
 
 
