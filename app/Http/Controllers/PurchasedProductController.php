@@ -28,22 +28,58 @@ class PurchasedProductController extends Controller
     }
 
     public function fetchall()
-{
-    $purchasedProducts = PurchasedProduct::all();
+    {
+        $purchasedProducts = PurchasedProduct::all();
 
-    return response()->json($purchasedProducts, 200);
-}
-
-public function show($invoice_no)
-{
-    $purchasedProduct = PurchasedProduct::where('invoice_no', $invoice_no)->first();
-
-    if (!$purchasedProduct) {
-        return response()->json(['message' => 'Data not found'], 404);
+        return response()->json($purchasedProducts, 200);
     }
 
-    return response()->json($purchasedProduct, 200);
-}
+    public function show($invoice_no)
+    {
+        $purchasedProduct = PurchasedProduct::where('invoice_no', $invoice_no)->get();
+
+        if (!$purchasedProduct) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($purchasedProduct, 200);
+    }
+
+    public function deletePurchasedProduct($invoice_no, $p_id)
+    {
+        try {
+            $product = PurchasedProduct::where('invoice_no', $invoice_no)
+                ->where('p_id', $p_id)
+                ->first();
+
+            if ($product) {
+                $product->delete();
+                return response()->json(['Message' => 'Product deleted successfully']);
+            } else {
+                return response()->json(['Message' => 'Product not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+
+    public function updatePurchaseProduct(Request $request, $invoice_no)
+    {
+        $product = PurchasedProduct::where('invoice_no', $invoice_no)->first();
+    
+        if (!$product) {
+            return response()->json(['Message' => 'Product not found']);
+        }
+    
+        $product->p_id = $request->input('p_id');
+        $product->product_name = $request->input('product_name');
+        $product->quantity = $request->input('quantity');
+        $product->rate = $request->input('rate');
+        $product->total = $request->input('total');
+        $product->save();
+    
+        return response()->json(['Message' => 'Product updated successfully']);
+    }
 
 
 }
