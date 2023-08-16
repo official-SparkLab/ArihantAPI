@@ -14,6 +14,7 @@ class Sale_Payment_Model extends Model
 
     protected $fillable = [
         'order_no',
+        'unique_id',
         'contact_no',
         'date',
         'paid_amount',
