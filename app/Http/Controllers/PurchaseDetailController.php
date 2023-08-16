@@ -43,14 +43,36 @@ class PurchaseDetailController extends Controller
         return response()->json($purchaseDetails, 200);
     }
 
-    public function show($contact_no)
+    public function show($invoice_no)
     {
-        $purchaseDetail = PurchaseDetail::where('contact_no', $contact_no)->get();
+        $purchaseDetail = PurchaseDetail::where('invoice_no', $invoice_no)->get();
 
         if (!$purchaseDetail) {
             return response()->json(['message' => 'Data not found'], 404);
         }
 
         return response()->json($purchaseDetail, 200);
+    }
+
+    public function updatePurchase(Request $request, $invoice_no)
+    {
+        $order = PurchaseDetail::where('invoice_no', $invoice_no)->first();
+
+        if (!$order) {
+            return response()->json(['Message' => 'Purchase not found']);
+        }
+
+
+        $order->date = $request->input('date');
+        $order->sub_total = $request->input('sub_total');
+        $order->discount = $request->input('discount');
+        $order->grand_total = $request->input('grand_total');
+        $order->paid_amount = $request->input('paid_amount');
+        $order->available_bal = $request->input('available_bal');
+        $order->payment_mode = $request->input('payment_mode');
+
+        $order->save();
+
+        return response()->json(['Message' => 'Purchase updated successfully']);
     }
 }

@@ -201,7 +201,11 @@ Route::post('/addPurchasedProduct',[PurchasedProductController::class,'store']);
 
 Route::get('/fetch_all_purchased_Products',[PurchasedProductController::class,'fetchall']);
 
-Route::get('/fetch_by_invoices/{invoice_no}',[PurchasedProductController::class,'show']);
+Route::get('/fetch_purchased_product/{invoice_no}',[PurchasedProductController::class,'show']);
+
+Route::put('/updatePurchasedproduct/{invoice_no}',[PurchasedProductController::class,'updatePurchaseProduct']);
+
+Route::delete('/deletePurchasedProduct/{invoice_no}/{p_id}',[PurchasedProductController::class,'deletePurchasedProduct']);
 
 
 //PurchDetails Routing
@@ -210,7 +214,11 @@ Route::post('/addPurchasedDetails',[PurchaseDetailController::class,'store']);
 
 Route::get('/fetch_all_purchased_details',[PurchaseDetailController::class,'index']);
 
-Route::get('/fetch_all_purchased_details/{contact_no}',[PurchaseDetailController::class,'show']);
+Route::get('/fetch_purchased_details/{invoice_no}',[PurchaseDetailController::class,'show']);
+
+Route::put('/updatePurchaseDetails/{invoice_no}',[PurchaseDetailController::class,'updatePurchase']);
+
+
 
 
 // Barcode and Weight Routing
