@@ -8,6 +8,7 @@ use App\Http\Controllers\ExcelDataController;
 use App\Http\Controllers\JoinTableController;
 use App\Http\Controllers\Ordered_Product_Controller;
 use App\Http\Controllers\Order_details_controller;
+use App\Http\Controllers\Post_Data_Controller;
 use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\PurchasedProductController;
@@ -304,4 +305,4 @@ Route::post('/addPurchasePayment',[Purchase_Payment_Controller::class,'addPaymen
 
 Route::post('/addSalePayment',[Sale_Payment_Controller::class,'addPayment']);
 
-
+Route::post('/addPostData',[Post_Data_Controller::class,'addPostData']);
