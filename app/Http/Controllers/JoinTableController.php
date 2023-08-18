@@ -108,16 +108,16 @@ class JoinTableController extends Controller
     public function CustomerLedger($contact_no, $date1, $date2)
     {
         $post = DB::select("
-            SELECT order_date, order_no, 0 AS sub_total, grand_total
+            SELECT order_date, order_no, paid_amount, available_bal,payment_mode
             FROM tbl_order_details 
             WHERE order_date BETWEEN '".$date1."' AND '".$date2."'
-            AND order_status IN ('Fulfilled', 'Delivered')
+
             AND contact_no = '".$contact_no."'
     
             UNION ALL
     
-            SELECT date, CONCAT('Customer Name:', cust_name), paid_amount, '0'
-            FROM sale_payable 
+            SELECT date, order_no, paid_amount, available_bal,payment_mode
+            FROM tbl_sale_payment 
             WHERE date BETWEEN '".$date1."' AND '".$date2."'
             AND contact_no = '".$contact_no."'
     
@@ -125,8 +125,6 @@ class JoinTableController extends Controller
         ");
     
         return response()->json([
-            "message" => "Data Fetched successfully",
-            "status" => "Success",
             "data" => $post
         ]);
     }
@@ -134,15 +132,15 @@ class JoinTableController extends Controller
     public function SupplierLedger($contact_no, $date1, $date2)
     {
         $post = DB::select("
-            SELECT date, invoice_no, grand_total,0 AS sub_total
+            SELECT date, invoice_no, paid_amount,available_bal,payment_mode
             FROM tbl_purchase_details 
             WHERE date BETWEEN '".$date1."' AND '".$date2."'
             AND contact_no = '".$contact_no."'
     
             UNION ALL
     
-            SELECT date, CONCAT('Supplier Name:', sup_name), '0', paid_amount
-            FROM purchase_payable 
+            SELECT date, invoice_no, paid_amount,available_bal,payment_mode
+            FROM tbl_purchase_payment 
             WHERE date BETWEEN '".$date1."' AND '".$date2."'
             AND contact_no = '".$contact_no."'
     
@@ -150,8 +148,6 @@ class JoinTableController extends Controller
         ");
     
         return response()->json([
-            "message" => "Data Fetched successfully",
-            "status" => "Success",
             "data" => $post
         ]);
     }

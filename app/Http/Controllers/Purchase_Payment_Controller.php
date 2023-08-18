@@ -13,6 +13,7 @@ class Purchase_Payment_Controller extends Controller
         $order = new Purchase_Payment_Model;
 
         $order->invoice_no = $request->input('invoice_no');
+        $order->contact_no = $request->input('contact_no');
         $order->date = $request->input('date');
         $order->paid_amount = $request->input('paid_amount');
         $order->available_bal = $request->input('available_bal');
