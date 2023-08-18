@@ -64,37 +64,36 @@ class JoinTableController extends Controller
 
     public function GeneralLedger($date1,$date2)
     {
-                $post=DB::select("
-                SELECT exp_date, exp_name, Expense As exp_details, 0 AS exp_total_amt,exp_amt, Null AS exp_paid_status
-        FROM tbl_expenses_details 
-        where exp_date between '".$date1."' and '".$date2."'
-
-        UNION ALL
-
-        SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_mode
-        FROM tbl_order_details 
-        where order_date between '".$date1."' and '".$date2."'
-
-        UNION ALL
-
-        SELECT date, order_no, 'Sale', paid_amount, '0' , payment_mode
-        FROM tbl_sale_payment
-        where date between '".$date1."' and '".$date2."'
-
-        UNION ALL
-
-        SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
-        FROM tbl_purchase_details
-        where date between '".$date1."' and '".$date2."'
-
-        UNION ALL
-
-        SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
-        FROM tbl_purchase_payment
-        where date between '".$date1."' and '".$date2."'
-
-
-        ORDER BY exp_date;
+                $post=DB::select("SELECT exp_date, exp_name, 'Expense' AS exp_details, 0 AS exp_total_amt, exp_amt, NULL AS exp_paid_status
+                FROM tbl_expenses_details 
+                WHERE exp_date BETWEEN '".$date1."' AND '".$date2."'
+                
+                UNION ALL
+                
+                SELECT order_date, order_no, 'Sale', paid_amount, 0, payment_mode
+                FROM tbl_order_details 
+                WHERE order_date BETWEEN '".$date1."' AND '".$date2."'
+                
+                UNION ALL
+                
+                SELECT date, order_no, 'Sale', paid_amount, 0, payment_mode
+                FROM tbl_sale_payment
+                WHERE date BETWEEN '".$date1."' AND '".$date2."'
+                
+                UNION ALL
+                
+                SELECT date, invoice_no, 'Purchase', 0, paid_amount, payment_mode
+                FROM tbl_purchase_details
+                WHERE date BETWEEN '".$date1."' AND '".$date2."'
+                
+                UNION ALL
+                
+                SELECT date, invoice_no, 'Purchase', 0, paid_amount, payment_mode
+                FROM tbl_purchase_payment
+                WHERE date BETWEEN '".$date1."' AND '".$date2."
+                
+                ORDER BY exp_date;
+                
                 ");
 
                 return response()->json([
