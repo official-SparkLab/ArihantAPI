@@ -13,6 +13,7 @@ class Purchase_Payment_Model extends Model
 
     protected $fillable = [
         'invoice_no',
+        'contact_no',
         'date',
         'paid_amount',
         'available_bal',
