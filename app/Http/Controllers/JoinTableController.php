@@ -65,32 +65,32 @@ class JoinTableController extends Controller
     public function GeneralLedger($date1,$date2)
     {
                 $post=DB::select("
-                SELECT exp_date, exp_name, 0 AS exp_amt, exp_total_amt
+                SELECT exp_date, exp_name, Expense As exp_details, 0 AS exp_total_amt,exp_amt, Null AS exp_paid_status
         FROM tbl_expenses_details 
         where exp_date between '".$date1."' and '".$date2."'
 
         UNION ALL
 
-        SELECT order_date, concat('Order No:',order_no), '0', grand_total
+        SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_mode
         FROM tbl_order_details 
         where order_date between '".$date1."' and '".$date2."'
 
         UNION ALL
 
-        SELECT date, concat('Customer Name:' ,cust_name) , paid_amount, '0'
-        FROM sale_payable
+        SELECT date, order_no, 'Sale', paid_amount, '0' , payment_mode
+        FROM tbl_sale_payment
         where date between '".$date1."' and '".$date2."'
 
         UNION ALL
 
-        SELECT date, concat('Purchase Invoice:',invoice_no), '0', grand_total
+        SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
         FROM tbl_purchase_details
         where date between '".$date1."' and '".$date2."'
 
         UNION ALL
 
-        SELECT date, concat('Supplier Name:',sup_name),  paid_amount, '0'
-        FROM purchase_payable
+        SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
+        FROM tbl_purchase_payment
         where date between '".$date1."' and '".$date2."'
 
 
