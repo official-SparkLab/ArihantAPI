@@ -83,13 +83,13 @@ class JoinTableController extends Controller
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , payment_mode
                 FROM tbl_purchase_details
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', 'paid_amount' , payment_mode
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , payment_mode
                 FROM tbl_purchase_payment
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
@@ -99,8 +99,7 @@ class JoinTableController extends Controller
                 ");
 
         return response()->json([
-            "message" => "Data Fetched successfully",
-            "status" => "Success",
+
             "data" => $post
 
         ]);
