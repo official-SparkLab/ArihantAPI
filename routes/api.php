@@ -230,7 +230,7 @@ Route::post('/addWeight',[Weight_Controller::class,'addWeight']);
 
 Route::post('/addBarcode',[Barcode_Controller::class,'addBarcode']);
 
-Route::get('/orderWithBarcode',[JoinTableController::class,'showOrderDetailsWithBarcode']);
+Route::get('/orderWithBarcode',[JoinTableController::class,'showOrdersWithBarcode']);
 
 
 // Shiped and Delivered Order Routing

@@ -51,15 +51,23 @@ class JoinTableController extends Controller
 
 
 
-      public function showOrderDetailsWithBarcode()
+    public function showOrdersWithBarcode()
     {
-        $ordersWithBarcodeData = Order_details_model::join('tbl_order_barcode', 'tbl_order_details.order_no', '=', 'tbl_order_barcode.order_no')
-            ->select('tbl_order_details.*', 'tbl_order_barcode.barcode')
+        $ordersWithCustomerData = Order_details_model::join('tbl_add_customer', 'tbl_order_details.contact_no', '=', 'tbl_add_customer.c_mobile_no')
+            ->select('tbl_order_details.*', 'tbl_add_customer.*')
+            ->unionAll(function ($query) {
+                $query->select('tbl_order_barcode.barcode')
+                    ->from('tbl_order_barcode')
+                    ->whereIn('order_no', function ($subquery) {
+                        $subquery->select('order_no')
+                            ->from('tbl_order_details');
+                    });
+            })
             ->get();
-
+    
         // Return the data as a JSON response
         return response()->json([
-            'data' => $ordersWithBarcodeData,
+            'data' => $ordersWithCustomerData,
         ]);
     }
     
