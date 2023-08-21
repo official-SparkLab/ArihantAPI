@@ -21,12 +21,10 @@ class Barcode_Controller extends Controller
 
         $order->save();
 
-        if($order)
-        {
-            return response()->json(['message'=>'Barcode added successfully']);
-        }
-        else{
-            return response()->json(['message'=>'Failed to add Barcode']);
+        if ($order) {
+            return response()->json(['message' => 'Barcode added successfully']);
+        } else {
+            return response()->json(['message' => 'Failed to add Barcode']);
         }
     }
 
@@ -34,7 +32,7 @@ class Barcode_Controller extends Controller
     public function fetchBarcode($unique_id)
     {
         $barcode = Barcode_Model::where('unique_id', $unique_id)->first();
-    
+
         if ($barcode) {
             return response()->json(['data' => $barcode]);
         } else {
@@ -46,9 +44,19 @@ class Barcode_Controller extends Controller
     public function showOrderDetailsWithBarcode()
     {
         $post = DB::select("
-           select * from tbl_order_details left join tbl_add_customer on tbl_order_details.contact_no = tbl_add_customer.c_mobile_no
-          left join tbl_order_barcode on tbl_order_details.order_no = tbl_order_barcode.order_no
-           where tbl_order_details.contact_no in (select  c_mobile_no from tbl_add_customer)
+        SELECT
+        od.*,
+        oc.c_name,
+        ob.barcode
+    FROM
+        tbl_order_details AS od
+    LEFT JOIN
+        tbl_add_customer AS oc ON od.contact_no = oc.c_mobile_no
+    LEFT JOIN
+        tbl_order_barcode AS ob ON od.order_no = ob.order_no
+    WHERE
+        od.contact_no IN (SELECT c_mobile_no FROM tbl_add_customer);
+    
         ");
 
         return response()->json([
@@ -56,6 +64,6 @@ class Barcode_Controller extends Controller
         ]);
     }
 
-  
-    
+
+
 }
