@@ -49,6 +49,21 @@ class JoinTableController extends Controller
         ]);
     }
 
+
+
+      public function showOrderDetailsWithBarcode()
+    {
+        $ordersWithBarcodeData = Order_details_model::join('tbl_order_barcode', 'tbl_order_details.order_no', '=', 'tbl_order_barcode.order_no')
+            ->select('tbl_order_details.*', 'tbl_order_barcode.barcode')
+            ->get();
+
+        // Return the data as a JSON response
+        return response()->json([
+            'data' => $ordersWithBarcodeData,
+        ]);
+    }
+    
+
     public function showBarcodandWeight()
     {
         // Retrieve the combined data based on the order_no
