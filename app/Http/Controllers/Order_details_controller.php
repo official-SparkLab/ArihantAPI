@@ -94,6 +94,8 @@ class Order_details_controller extends Controller
         $deliveredOrderCount = $this->getOrderStatusLength('Delivered');
         $fulfilledOrderCount = $this->getOrderStatusLength('Fulfilled');
         $returnOrderCount = $this->getOrderStatusLength('Returned');
+        $intransitOrderCount = $this->getOrderStatusLength('In transit');
+
 
 
         return response()->json([
@@ -102,7 +104,7 @@ class Order_details_controller extends Controller
             'delivered_orders_count' => $deliveredOrderCount,
             'fulfilled_orders_count' => $fulfilledOrderCount,
             'total_orders_count' => $totalOrderCount,
-
+            'intransit_orders_count' => $intransitOrderCount
 
         ]);
     }
