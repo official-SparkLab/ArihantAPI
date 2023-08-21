@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barcode_Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Barcode_Controller extends Controller
 {
@@ -39,6 +40,20 @@ class Barcode_Controller extends Controller
         } else {
             return response()->json(["Message" => "barcode not found"]);
         }
+    }
+
+
+    public function showOrderDetailsWithBarcode()
+    {
+        $post = DB::select("
+           select * from tbl_order_details left join tbl_add_customer on tbl_order_details.contact_no = tbl_add_customer.c_mobile_no
+          left join tbl_order_barcode on tbl_order_details.order_no = tbl_order_barcode.order_no
+           where tbl_order_details.contact_no in (select  c_mobile_no from tbl_add_customer)
+        ");
+
+        return response()->json([
+            "data" => $post
+        ]);
     }
 
   
