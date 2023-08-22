@@ -11,7 +11,7 @@ class Purchase_Payment_Controller extends Controller
     public function addPayment(Request $request)
     {
         $order = new Purchase_Payment_Model;
-        $order->invoice_no = $request->input('payment_type');
+     
 
         $order->invoice_no = $request->input('invoice_no');
         $order->contact_no = $request->input('contact_no');
