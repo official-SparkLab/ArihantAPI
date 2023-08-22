@@ -11,7 +11,7 @@ class Sale_Payment_Controller extends Controller
     public function addPayment(Request $request)
     {
         $order = new Sale_Payment_Model;
-        $order->order_no = $request->input('payment_type');
+        $order->payment_type = $request->input('payment_type');
 
         $order->order_no = $request->input('order_no');
         $order->unique_id = $request->input('unique_id');
