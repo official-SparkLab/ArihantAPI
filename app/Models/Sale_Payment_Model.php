@@ -13,6 +13,7 @@ class Sale_Payment_Model extends Model
     protected $primaryKey = "id";
 
     protected $fillable = [
+        'payment_type',
         'order_no',
         'unique_id',
         'contact_no',

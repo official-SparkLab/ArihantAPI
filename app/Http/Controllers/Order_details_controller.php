@@ -15,11 +15,12 @@ class Order_details_controller extends Controller
     {
         try {
             // Execute the SQL statement using the DB facade
-            $result = DB::statement("CALL order_details(?,?, ?, ?, ?, ?, ?, ?, ?,?,?, @order_num)", [
+            $result = DB::statement("CALL order_details(?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?, @order_num)", [
                 $request->input('unique_id'),
                 $request->input('today'),
                 $request->input('order_type'),
                 $request->input('contactNo'),
+                $request->input('payment_type'),
                 $request->input('sub_total'),
                 $request->input('discount'),
                 $request->input('grand_total'),
@@ -53,6 +54,7 @@ class Order_details_controller extends Controller
 
         $order->order_type = $request->input('order_type');
         $order->contact_no = $request->input('contactNo');
+        $order->contact_no = $request->input('payment_type');
         $order->sub_total = $request->input('sub_total');
         $order->discount = $request->input('discount');
         $order->grand_total = $request->input('grand_total');

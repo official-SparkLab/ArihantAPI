@@ -16,6 +16,7 @@ class PurchaseDetail extends Model
         'place_of_supply',
         'dispatch_no',
         'destination',
+        'payment_type',
         'shipping_cost',
         'sub_total',
         'discount',
