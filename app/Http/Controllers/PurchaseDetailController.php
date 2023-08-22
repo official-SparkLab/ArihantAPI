@@ -18,6 +18,7 @@ class PurchaseDetailController extends Controller
         $purchaseDetails->place_of_supply = $request->input('place_of_supply');
         $purchaseDetails->dispatch_no = $request->input('dispatch_no');
         $purchaseDetails->destination = $request->input('destination');
+        $purchaseDetails->destination = $request->input('payment_type');
         $purchaseDetails->shipping_cost = $request->input('shipping_cost');
         $purchaseDetails->sub_total = $request->input('sub_total');
         $purchaseDetails->discount = $request->input('discount');
@@ -64,6 +65,8 @@ class PurchaseDetailController extends Controller
 
 
         $order->date = $request->input('date');
+        $order->date = $request->input('payment_type');
+
         $order->sub_total = $request->input('sub_total');
         $order->discount = $request->input('discount');
         $order->grand_total = $request->input('grand_total');
