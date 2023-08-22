@@ -73,25 +73,25 @@ class JoinTableController extends Controller
         
                 UNION ALL
         
-                SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_mode
+                SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_type
                 FROM tbl_order_details 
                 where order_date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, order_no, 'Sale', paid_amount, '0' , payment_mode
+                SELECT date, order_no, 'Sale', paid_amount, '0' , payment_type
                 FROM tbl_sale_payment
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', paid_amount , payment_mode
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0'
                 FROM tbl_purchase_details
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', paid_amount , payment_mode
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0'
                 FROM tbl_purchase_payment
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
@@ -110,7 +110,7 @@ class JoinTableController extends Controller
     public function CustomerLedger($contact_no, $date1, $date2)
     {
         $post = DB::select("
-            SELECT order_date, order_no, paid_amount, available_bal,payment_mode,grand_total
+            SELECT order_date, order_no, paid_amount, available_bal,payment_type,grand_total
             FROM tbl_order_details 
             WHERE order_date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
 
@@ -118,7 +118,7 @@ class JoinTableController extends Controller
     
             UNION ALL
     
-            SELECT date, order_no, paid_amount, available_bal,payment_mode,'0'
+            SELECT date, order_no, paid_amount, available_bal,payment_type,'0'
             FROM tbl_sale_payment 
             WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
             AND contact_no = '" . $contact_no . "'
@@ -134,14 +134,14 @@ class JoinTableController extends Controller
     public function SupplierLedger($contact_no, $date1, $date2)
     {
         $post = DB::select("
-            SELECT date, invoice_no, paid_amount,available_bal,payment_mode,grand_total
+            SELECT date, invoice_no, paid_amount,available_bal,grand_total
             FROM tbl_purchase_details 
             WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
             AND contact_no = '" . $contact_no . "'
     
             UNION ALL
     
-            SELECT date, invoice_no, paid_amount,available_bal,payment_mode,'0'
+            SELECT date, invoice_no, paid_amount,available_bal,'0'
             FROM tbl_purchase_payment 
             WHERE date BETWEEN '" . $date1 . "' AND '" . $date2 . "'
             AND contact_no = '" . $contact_no . "'
