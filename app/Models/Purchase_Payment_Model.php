@@ -12,7 +12,6 @@ class Purchase_Payment_Model extends Model
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'payment_type',
         'invoice_no',
         'contact_no',
         'date',
