@@ -67,31 +67,31 @@ class JoinTableController extends Controller
     public function GeneralLedger($date1, $date2)
     {
         $post = DB::select("
-                SELECT exp_date, exp_name, 'Expense' As exp_details, 0 AS exp_total_amt,exp_amt, Null AS exp_paid_status
+                SELECT exp_date, exp_name, 'Expense' As exp_details, 0 AS exp_total_amt,exp_amt, Null AS exp_paid_status, Null AS exp_note
                 FROM tbl_expenses_details 
                 where exp_date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_type
+                SELECT order_date, order_no, 'Sale', paid_amount, '0' , payment_type , available_bal
                 FROM tbl_order_details 
                 where order_date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, order_no, 'Sale', paid_amount, '0' , payment_type
+                SELECT date, order_no, 'Sale', paid_amount, '0' , payment_type , available_bal
                 FROM tbl_sale_payment
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0'
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0', available_bal
                 FROM tbl_purchase_details
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
                 UNION ALL
         
-                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0'
+                SELECT date, invoice_no, 'Purchase', '0', paid_amount , '0',available_bal
                 FROM tbl_purchase_payment
                 where date between '" . $date1 . "' and '" . $date2 . "'
         
