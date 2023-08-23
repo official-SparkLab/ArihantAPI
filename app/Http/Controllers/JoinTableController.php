@@ -22,19 +22,7 @@ class JoinTableController extends Controller
         ]);
     }
 
-    public function showOrdersWithCustomerContactandUniqueId($contact_no, $unique_id)
-    {
-        $ordersWithCustomerData = Order_details_model::join('tbl_add_customer', 'tbl_order_details.contact_no', '=', 'tbl_add_customer.c_mobile_no')
-            ->where('tbl_order_details.contact_no', $contact_no)
-            ->where('tbl_order_details.unique_id', $unique_id)
-            ->select('tbl_order_details.*', 'tbl_add_customer.*')
-            ->get();
-
-        // Return the data as a JSON response
-        return response()->json([
-            'data' => $ordersWithCustomerData,
-        ]);
-    }
+  
 
     public function showOrdersWithCustomerContact($contact_no)
     {
