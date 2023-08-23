@@ -15,11 +15,21 @@ class Order_details_controller extends Controller
     {
         try {
             // Execute the SQL statement using the DB facade
-            $result = DB::statement("CALL order_details(?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?, @order_num)", [
+            $result = DB::statement("CALL order_details(?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?,?,?,?,?,?,?,?,?,?, @order_num)", [
                 $request->input('unique_id'),
                 $request->input('today'),
                 $request->input('order_type'),
                 $request->input('contactNo'),
+                $request->input('name'),
+                $request->input('email'),
+                $request->input('city'),
+                $request->input('state'),
+                $request->input('pincode'),
+                $request->input('taluka'),
+                $request->input('village'),
+                $request->input('address'),
+                $request->input('postOfficeData'),
+
                 $request->input('payment_type'),
                 $request->input('sub_total'),
                 $request->input('discount'),
@@ -195,5 +205,25 @@ class Order_details_controller extends Controller
             "data" => $post
         ]);
     }
+
+    public function fetchOrderDetails($contact_no, $unique_id)
+    {
+        try {
+            $order = Order_details_model::where('contact_no', $contact_no)
+                ->where('unique_id', $unique_id)
+                ->first();
+
+                if ($order) {
+                    return response()->json(['data' => $order]);
+                } else {
+                    return response()->json(["Message" => "Order not found"]);
+                }
+
+        } catch (\Exception $e) {
+            return response()->json(['Message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+
+
     
 }

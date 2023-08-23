@@ -185,6 +185,7 @@ Route::put('/cancleOrder/{unique_id}',[Order_details_controller::class,'addReaso
 
 Route::get('/outbond/{date1}/{date2}',[Order_details_controller::class,'IntransitOrders']);
 
+Route::get('/fetchOrderDetails/{contact_no}/{unique_id}',[Order_details_controller::class,'fetchOrderDetails']);
 
 
 
@@ -246,7 +247,6 @@ Route::get('/fetchOrderDetails',[JoinTableController::class,'showOrdersWithCusto
 
 Route::get('/fetchOrderDetailsBy/{contact_no}',[JoinTableController::class,'showOrdersWithCustomerContact']);
 
-Route::get('/fetchOrderDetails/{contact_no}/{unique_id}',[JoinTableController::class,'showOrdersWithCustomerContactandUniqueId']);
 
 
 Route::get('/fetchBarcodeandWeight',[JoinTableController::class,'showBarcodandWeight']);
