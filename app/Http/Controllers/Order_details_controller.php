@@ -54,7 +54,7 @@ class Order_details_controller extends Controller
 
         $order->order_type = $request->input('order_type');
         $order->contact_no = $request->input('contactNo');
-        $order->contact_no = $request->input('payment_type');
+        $order->payment_type = $request->input('payment_type');
         $order->sub_total = $request->input('sub_total');
         $order->discount = $request->input('discount');
         $order->grand_total = $request->input('grand_total');
