@@ -18,6 +18,7 @@ class Order_details_model extends Model
         'order_date',
         'order_type',
         'contact_no',
+        'alternate_no',
         'name',
         'email',
         'city',
