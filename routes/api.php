@@ -238,6 +238,9 @@ Route::get('/orderWithBarcode',[Barcode_Controller::class,'showOrderDetailsWithB
 
 Route::put('/shippeOrder/{unique_id}',[Order_details_controller::class,'shipOrder']);
 
+Route::put('/returnOrder/{unique_id}',[Order_details_controller::class,'returnOrder']);
+
+
 Route::put('/deliverOrder{unique_id}',[Order_details_controller::class,'deliverOrder']);
 
 
