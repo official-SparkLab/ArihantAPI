@@ -315,8 +315,4 @@ Route::post('/addPostData',[Post_Data_Controller::class,'addPostData']);
 
 // Stock Routing 
 
-Route::get('/purchaseQty',[PurchasedProductController::class,'fetchQuantityTotal']);
-
-Route::get('/minusSaleQty',[Ordered_Product_Controller::class,'minusTotalqty']);
-
-Route::get('/plusSaleQty',[Ordered_Product_Controller::class,'plusTotalqty']);
+Route::get('/stockCount',[Ordered_Product_Controller::class,'combineData']);

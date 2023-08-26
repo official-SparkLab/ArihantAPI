@@ -83,41 +83,16 @@ class Ordered_Product_Controller extends Controller
 
 
 
-    // Sale product qty of ready to ship , fulfilled, delivered
-    public function minusTotalqty()
-    {
-        $qtyData = DB::select("
-                        SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
-                FROM tbl_ordered_product op
-                LEFT JOIN tbl_order_details od ON od.unique_id = op.unique_id
-                WHERE od.order_status = 'Ready to ship' OR od.order_status = 'Fulfilled' OR od.order_status = 'Delivered' OR od.order_status = 'In transit'
-                GROUP BY op.product_name;
-        ");
-    
-        $productQuantities = [];
-    
-        foreach ($qtyData as $entry) {
-            $productName = $entry->product_name;
-            $totalQuantity = $entry->total_quantity;
-    
-            $productQuantities[] = ['product_name' => $productName, 'quantity' => $totalQuantity];
-        }
-    
-        return response()->json(['data' => $productQuantities], 200);
-    }
-    
-
-
 
     // Sale product qty of cancelled and returned
-    public function plusTotalqty()
+    public function combineData()
     {
         $qtyData = DB::select("
-                        SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
-                FROM tbl_ordered_product op
-                LEFT JOIN tbl_order_details od ON od.unique_id = op.unique_id
-                WHERE od.order_status = 'Cancelled' OR od.order_status = 'Returned'
-                GROUP BY op.product_name;
+            SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
+            FROM tbl_ordered_product op
+            LEFT JOIN tbl_order_details od ON od.unique_id = op.unique_id
+            WHERE od.order_status IN ('Cancelled', 'Returned')
+            GROUP BY op.product_name;
         ");
     
         $productQuantities = [];
@@ -126,12 +101,47 @@ class Ordered_Product_Controller extends Controller
             $productName = $entry->product_name;
             $totalQuantity = $entry->total_quantity;
     
-            $productQuantities[] = ['product_name' => $productName, 'quantity' => $totalQuantity];
+            $productQuantities[$productName] = ['product_name' => $productName, 'quantity' => $totalQuantity];
         }
     
-        return response()->json(['data' => $productQuantities], 200);
+        $data = DB::select("SELECT product_name, quantity FROM tbl_purchased_product");
+    
+        foreach ($data as $entry) {
+            $productName = $entry->product_name;
+            $quantity = $entry->quantity;
+    
+            if (array_key_exists($productName, $productQuantities)) {
+                $productQuantities[$productName]['quantity'] += $quantity;
+            } else {
+                $productQuantities[$productName] = ['product_name' => $productName, 'quantity' => $quantity];
+            }
+        }
+    
+        $qtyDataReady = DB::select("
+            SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
+            FROM tbl_ordered_product op
+            LEFT JOIN tbl_order_details od ON od.unique_id = op.unique_id
+            WHERE od.order_status IN ('Ready to ship', 'Fulfilled', 'Delivered', 'In transit')
+            GROUP BY op.product_name;
+        ");
+    
+        foreach ($qtyDataReady as $entry) {
+            $productName = $entry->product_name;
+            $totalQuantity = $entry->total_quantity;
+    
+            if (array_key_exists($productName, $productQuantities)) {
+                $productQuantities[$productName]['quantity'] -= $totalQuantity;
+            } else {
+                $productQuantities[$productName] = ['product_name' => $productName, 'quantity' => -$totalQuantity];
+            }
+        }
+    
+        $combinedData = array_values($productQuantities);
+    
+        return response()->json(['data' => $combinedData], 200);
     }
     
+
 
 
 
