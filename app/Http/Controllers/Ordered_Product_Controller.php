@@ -87,35 +87,18 @@ class Ordered_Product_Controller extends Controller
     // Sale product qty of cancelled and returned
     public function combineData()
     {
-        $qtyData = DB::select("
-            SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
-            FROM tbl_ordered_product op
-            LEFT JOIN tbl_order_details od ON od.unique_id = op.unique_id
-            WHERE od.order_status IN ('Cancelled', 'Returned')
-            GROUP BY op.product_name;
-        ");
+        $qtyData = DB::select("SELECT product_name, quantity FROM tbl_purchased_product");
     
         $productQuantities = [];
     
         foreach ($qtyData as $entry) {
             $productName = $entry->product_name;
-            $totalQuantity = $entry->total_quantity;
+            $totalQuantity = $entry->quantity;
     
             $productQuantities[$productName] = ['product_name' => $productName, 'quantity' => $totalQuantity];
         }
     
-        $data = DB::select("SELECT product_name, quantity FROM tbl_purchased_product");
-    
-        foreach ($data as $entry) {
-            $productName = $entry->product_name;
-            $quantity = $entry->quantity;
-    
-            if (array_key_exists($productName, $productQuantities)) {
-                $productQuantities[$productName]['quantity'] += $quantity;
-            } else {
-                $productQuantities[$productName] = ['product_name' => $productName, 'quantity' => $quantity];
-            }
-        }
+       
     
         $qtyDataReady = DB::select("
             SELECT op.product_name AS product_name, SUM(op.quantity) AS total_quantity
