@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PurchasedProduct;
+use Illuminate\Support\Facades\DB;
 
 class PurchasedProductController extends Controller
 {
@@ -33,6 +34,29 @@ class PurchasedProductController extends Controller
 
         return response()->json($purchasedProducts, 200);
     }
+
+
+    // Fetch total purchased qty
+    public function fetchQuantityTotal()
+    {
+        $data = DB::select("select product_name, quantity from tbl_purchased_product");
+    
+        $productQuantities = [];
+    
+        foreach ($data as $entry) {
+            $productName = $entry->product_name;
+            $quantity = $entry->quantity;
+    
+            if (array_key_exists($productName, $productQuantities)) {
+                $productQuantities[$productName] += $quantity;
+            } else {
+                $productQuantities[$productName] = $quantity;
+            }
+        }
+    
+        return response()->json($productQuantities, 200);
+    }
+    
 
     public function show($invoice_no)
     {
