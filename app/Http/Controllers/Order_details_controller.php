@@ -167,6 +167,23 @@ class Order_details_controller extends Controller
 
     }
 
+     // Return Order 
+    public function returnOrder($unique_id)
+    {
+        $order = Order_details_model::where('unique_id', $unique_id)->first();
+
+        if (!$order) {
+            return response()->json(['Message' => 'Order not found']);
+        }
+
+        $order->order_status = "Returned";
+        $order->save();
+
+        return response()->json([
+            'message' => 'Order returned Successfully',
+        ]);
+
+    }
 
     // Deleverd Successfully
     public function deliverOrder($unique_id)
