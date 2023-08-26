@@ -38,24 +38,31 @@ class PurchasedProductController extends Controller
 
     // Fetch total purchased qty
     public function fetchQuantityTotal()
-    {
-        $data = DB::select("select product_name, quantity from tbl_purchased_product");
-    
-        $productQuantities = [];
-    
-        foreach ($data as $entry) {
-            $productName = $entry->product_name;
-            $quantity = $entry->quantity;
-    
-            if (array_key_exists($productName, $productQuantities)) {
-                $productQuantities[$productName] += $quantity;
-            } else {
-                $productQuantities[$productName] = $quantity;
-            }
+{
+    $data = DB::select("SELECT product_name, quantity FROM tbl_purchased_product");
+
+    $productQuantities = [];
+
+    foreach ($data as $entry) {
+        $productName = $entry->product_name;
+        $quantity = $entry->quantity;
+
+        if (array_key_exists($productName, $productQuantities)) {
+            $productQuantities[$productName] += $quantity;
+        } else {
+            $productQuantities[$productName] = $quantity;
         }
-    
-        return response()->json($productQuantities, 200);
     }
+
+    $formattedData = [];
+
+    foreach ($productQuantities as $productName => $quantity) {
+        $formattedData[] = ['product_name' => $productName, 'quantity' => $quantity];
+    }
+
+    return response()->json(['data' => $formattedData], 200);
+}
+
     
 
     public function show($invoice_no)
