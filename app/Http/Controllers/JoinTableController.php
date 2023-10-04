@@ -144,5 +144,34 @@ class JoinTableController extends Controller
 
 
 
+    public function logGenerator()
+    {
+        $data = DB::select("SELECT 
+        od.order_no,
+        od.order_date,
+        od.contact_no,
+        od.name,
+        od.postOfficeData,
+        od.grand_total,
+        od.village,
+        od.state,
+        od.city,
+         ob.barcode,
+         pd.Amount_Local_Currency
+     FROM 
+         tbl_order_details od
+     INNER JOIN 
+         tbl_order_barcode ob
+     ON 
+         od.order_no = ob.order_no
+     INNER JOIN 
+         tbl_post_data pd
+     ON 
+         ob.barcode = pd.barcode;");
+
+         
+    return response()->json(["data"=>$data,"message"=>"Data fetched succesfully"]);
+    }
+
 
 }
