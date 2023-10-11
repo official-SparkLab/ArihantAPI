@@ -317,5 +317,5 @@ Route::post('/addPostData',[Post_Data_Controller::class,'addPostData']);
 
 Route::get('/stockCount',[Ordered_Product_Controller::class,'combineData']);
 
-Route::get('/logGenerator',[JoinTableController::class,'logGenerator']);
+Route::get('/logGenerator/{date}',[JoinTableController::class,'logGenerator']);
 
