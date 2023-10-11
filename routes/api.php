@@ -310,12 +310,11 @@ Route::post('/addPurchasePayment',[Purchase_Payment_Controller::class,'addPaymen
 
 Route::post('/addSalePayment',[Sale_Payment_Controller::class,'addPayment']);
 
-Route::post('/addPostData',[Post_Data_Controller::class,'addPostData']);
-
+Route::get('/getImportDate',[Post_Data_Controller::class,'getImportDate']);
 
 // Stock Routing 
 
 Route::get('/stockCount',[Ordered_Product_Controller::class,'combineData']);
 
-Route::get('/logGenerator',[JoinTableController::class,'logGenerator']);
+Route::get('/logGenerator/{date}',[JoinTableController::class,'logGenerator']);
 

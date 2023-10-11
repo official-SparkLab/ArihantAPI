@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Post_Data_Model extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_post_data';
+    protected $table = 'tbl_post_data   ';
     protected $primaryKey = "sr_no";
 
     protected $fillable = [
-       'Assignment',
+       'barcode',
        'Document_Type',
        'Document_Date',
        'Amount_Local_Currency',
        'Profit_Center',
-       'Document_Number'
+       'Document_Number',
+       'import_Date'
     ];
 
     public $timestamps = false;
